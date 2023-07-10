@@ -1,0 +1,78 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caprasimo&display=swap');
+        :root {
+            --bs-blue: #0d6efd;
+            --bs-indigo: #6610f2;
+            --bs-purple: #6f42c1;
+            --bs-pink: #d63384;
+            --bs-red: #dc3545;
+            --bs-orange: #fd7e14;
+            --bs-yellow: #ffc107;
+            --bs-green: #198754;
+            --bs-teal: #20c997;
+            --bs-cyan: #0dcaf0;
+            --bs-white: #fff;
+            --bs-gray: #868e96;
+            --bs-gray-dark: #343a40;
+            --bs-gray-100: #f1f3f5;
+            --bs-gray-200: #e9ecef;
+            --bs-gray-300: #dee2e6;
+            --bs-gray-400: #ced4da;
+            --bs-gray-500: #adb5bd;
+            --bs-gray-600: #868e96;
+            --bs-gray-700: #495057;
+            --bs-gray-800: #343a40;
+            --bs-gray-900: #212529;
+            --bs-primary: #00c471;
+            --bs-secondary: #343a40;
+            --bs-success: #198754;
+            --bs-info: #0d6efd;
+            --bs-warning: #ffc107;
+            --bs-danger: #dc3545;
+            --bs-light: #f1f3f5;
+            --bs-dark: #212529;
+            --bs-body-bg: #fff;
+        }
+        html, body {
+            width: 100%;
+        }
+        a {
+            text-decoration: none;
+            color : inherit;
+        }
+        li {
+            list-style: none;
+        }
+    </style>
+</head>
+    <body>
+        <div id="root">
+            <div class="header">
+                <a href="/">
+                    {% set header_str = "Home" %}
+                    {% for str in header_str %}
+                    <span>{{str}}</span>
+                    {% endfor %}
+                </a>
+            </div>
+            <div class="border"> </div>
+            <main id = "main">
+                <table class="home_menu_list">
+                    {% set menu_list = {'목록보기' : '/user/board/list', '사용자 등록하기' : '/user/register', '가게 등록하기' : '/store/register', '상품 등록하기' : '/item/register'} %}
+                    {# TODO : '주문하기' : '/order/select-user', 추가하여 주문 기능 완성#}
+                    {% for menu, url in menu_list.items() %}
+                    <tr onclick="window.location.href = '{{url}}'">
+                        <td class = "menu_td" align="center">{{menu}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </main>
+            <div class="border" style="margin-bottom:50px;"> </div>
+        </div>
+    </body>
+</html>

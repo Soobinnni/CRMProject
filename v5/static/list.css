@@ -1,0 +1,109 @@
+
+nav.nav ul{ 
+    margin : 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    padding: 1.5% 10%;
+}
+.border {
+    border-bottom: 3px solid var(--bs-warning);
+}
+nav.nav ul li {
+    margin-right : 5%;
+}
+nav.nav {
+    background-color: var(--bs-dark);
+    color : var(--bs-white);
+    font-weight : 800;       
+    cursor: pointer;
+}
+nav.nav li:hover {
+    color : var(--bs-gray-400)
+}
+div.search_bar {
+    margin-bottom : 2%;
+}
+main#main {
+    width: 80%;
+    margin : 0 auto;
+    min-height: 500px;
+}
+.board_name {
+    font-weight: 800;letter-spacing: -1px;
+}
+.board_content table {
+    width:100%;
+    margin-top : 30px;
+    border-collapse : collapse;
+}
+.board_content table th {
+    background-color: var(--bs-yellow);
+    padding : 5px;
+}
+.board_content table td {
+    padding : 13px;
+    text-align: center;
+    border-bottom: 1px solid var(--bs-gray-300);
+}
+.board_content table td a:hover{
+        color : var(--bs-orange)
+}
+.search_bar form label {
+    font-size: 1.2em;
+    font-weight: 600;
+    color : var(--bs-gray-600)
+}
+.main_content .search_bar form select {
+    width : 100px;
+    text-align: center;
+    height : 20px;
+    font-weight: 600;
+}
+.main_content .search_bar form input[type=submit] {
+    cursor: pointer;
+    width : 120px;
+    background-color: var(--bs-orange);
+    color: var(--bs-white);
+    text-align: center;
+    height : 20px;
+    font-weight: 600;
+    border : 1px solid var(--bs-gray-600);
+}
+.main_content .search_bar form input[type=submit]:hover {
+    background-color: var(--bs-white);
+    color: var(--bs-orange);
+}
+.search_bar form input+.space {
+    margin : 0 5px;
+    display: inline-block;
+}
+.search_bar form select+.space {
+    margin : 0 10px;
+    display: inline-block;
+}
+.board_paging {
+    margin : 10px auto 20px;
+}
+
+.board_paging ul {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 40%;
+    margin: 0;
+}
+
+.board_paging li {
+    list-style-type: none;
+}
+.board_paging ul li .page_num:hover, .pre_page_btn:hover, .next_page_btn:hover, .current_page {
+    color : var(--bs-orange);
+    font-weight: 600;
+    font-size: 1.2em;
+}
+
+tbody tr:not(:first-child):hover {
+    color: var(--bs-orange);
+    font-weight: 700;
+    background-color: var(--bs-gray-200);
+    cursor: pointer;
+}

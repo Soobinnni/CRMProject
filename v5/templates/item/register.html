@@ -1,0 +1,209 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caprasimo&display=swap');
+        :root {
+            --bs-blue: #0d6efd;
+            --bs-indigo: #6610f2;
+            --bs-purple: #6f42c1;
+            --bs-pink: #d63384;
+            --bs-red: #dc3545;
+            --bs-orange: #fd7e14;
+            --bs-yellow: #ffc107;
+            --bs-green: #198754;
+            --bs-teal: #20c997;
+            --bs-cyan: #0dcaf0;
+            --bs-white: #fff;
+            --bs-gray: #868e96;
+            --bs-gray-dark: #343a40;
+            --bs-gray-100: #f1f3f5;
+            --bs-gray-200: #e9ecef;
+            --bs-gray-300: #dee2e6;
+            --bs-gray-400: #ced4da;
+            --bs-gray-500: #adb5bd;
+            --bs-gray-600: #868e96;
+            --bs-gray-700: #495057;
+            --bs-gray-800: #343a40;
+            --bs-gray-900: #212529;
+            --bs-primary: #00c471;
+            --bs-secondary: #343a40;
+            --bs-success: #198754;
+            --bs-info: #0d6efd;
+            --bs-warning: #ffc107;
+            --bs-danger: #dc3545;
+            --bs-light: #f1f3f5;
+            --bs-dark: #212529;
+            --bs-body-bg: #fff;
+        }
+        html, body {
+            width: 100%;
+        }
+        a {
+            text-decoration: none;
+            color : inherit;
+        }
+        li {
+            list-style: none;
+        }
+        .border {
+            border-bottom: 3px solid var(--bs-warning);
+        }
+        main#main {
+            width: 80%;
+            margin : 0 auto 10px;
+        }
+        .home_menu_list {
+            width: 100%;
+            margin : 2% 0 4%;
+            border-collapse: collapse
+        }
+        
+        .home_menu_list tr {
+            font-weight : 600;
+            color:var(--bs-gray-700)
+        }
+        .home_menu_list tr:hover {
+            color: var(--bs-orange);
+            font-weight: 700;
+            background-color: var(--bs-gray-200);
+            cursor: pointer;
+        }
+        .home_menu_list tr {
+            height: 50px;
+        }
+        .home_menu_list tr:not(:last-child) {
+            border-bottom : 1px solid var(--bs-gray-100);
+        }
+        .header {
+            padding : 2% 0 1%;
+            letter-spacing: -1px;
+            font-size: 2.5em;
+            text-align: center;
+            background-color: var(--bs-dark);
+        }
+        .header span:nth-child(2n-1){
+            color : var(--bs-yellow)
+        }
+        .header span:nth-child(2n){
+            color : var(--bs-orange)            
+        }
+        .item_register_content {
+            width: 50%;
+            margin: 5% auto;
+            padding-left : 9%;
+        }
+        .item_register_content form table {
+            width: 80%;
+            border-collapse: collapse;
+        }
+        .item_register_content form table tr {
+            height : 45px;
+        }
+        .item_register_content form table tr:not(:last-child) {
+            border-bottom : 1px solid var(--bs-gray-200);
+        }
+        .item_register_content form table tr td:first-child {
+            width: 40%;
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--bs-gray-800);
+        }
+        .item_register_content form table tr td:nth-child(2) {
+            width: 60%;
+        }
+        .item_register_content form table tr td input, .item_register_content form table tr td select {
+            color : var(--bs-gray-600);
+            border: 1px solid rgba(136, 134, 134, 0.2);
+            border-radius : 10px;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            height: 30px;
+            text-align: center;
+            font-style: oblique;
+        }
+        .item_register_btn {
+            width: 60%;
+            margin : 6% auto;
+            display: flex;
+            justify-content: flex-end;
+            gap : 5%;
+        }
+        .item_register_btn input, .item_register_btn button {
+            border-style: none;
+            width: 35%;
+            height: 30px;
+            cursor: pointer;
+            border-radius: 22px;
+            background-color: var(--bs-dark);
+            color : var(--bs-light);
+            font-weight: 700;
+            font-size: 40%;
+        }
+        .item_register_btn input:hover, .item_register_btn button:hover {
+            background-color: var(--bs-orange);
+            color : var(--bs-dark)
+        }
+    </style>
+</head>
+    <body>
+        <div id="root">
+            <div class="header">
+                <a href="{{url_for('item.item_register')}}">
+                    {% set header_str = "Item Register" %}
+                    {% for str in header_str %}
+                    {% if str == ' ' %}
+                    <span>&nbsp;</span>
+                    {% else %}
+                    <span>{{str}}</span>
+                    {% endif %}
+                    {% endfor %}
+                </a>
+            </div>
+            <div class="border"> </div>
+            <main id = "main">
+                <div class="item_register_content">
+                   <form action="{{ url_for('item.item_register') }}" method="post">
+                        <table>
+                            <!--Type-->
+                            <tr>
+                                <td><label for="type">Type </label></td>
+                                <td>
+                                    <select name="type" id="type">
+                                    {% set type_dic = {'Cake' : 'cake', 'Coffee' : 'coffee', 'Juice' : 'juice'} %}
+                                    {% for key, value in type_dic.items() %}
+                                        <option value="{{key}}">{{value}}</option>
+                                    {% endfor %}
+                                    </select>
+                                </td>
+                            </tr>
+                            <!--Name-->
+                            <tr>
+                                <td><label for="name">Name </label></td>
+                                <td><input type = "text" name = "name" placeholder="상품명을 입력하세요." id = "name"></td>
+                            </tr>
+                            <!--UnitPrice-->
+                            <tr>
+                                <td><label for="unit_price">UnitPrice </label></td>
+                                <td><input type = "text" name = "unit_price" placeholder="가격을 입력하세요" id = "unit_price"></td>
+                            </tr>
+                            <!-- 유효성 -->
+                            {% if is_empty %}
+                            <tr>
+                                <td colspan="2" style="font-size: 1em; color: var(--bs-warning);font-style: oblique;padding:10px;">데이터가 모두 입력되지 않았거나 올바르게 입력되지 않았습니다.</td>
+                            </tr>
+                            {% endif %}
+                        </table>
+                        <div class="item_register_btn">
+                            <input type="submit" value="등록하기"></td>
+                            <button type="button" onclick = "window.location.href = '/'">취소하기</button>
+                        </div>
+                    </form>
+                </div>
+            </main>
+            <div class="border" style="margin-bottom:50px;"> </div>
+        </div>
+    </body>
+</html>

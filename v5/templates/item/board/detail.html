@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>item detail</title>
+    <style>
+        :root {
+            --bs-blue: #0d6efd;
+            --bs-indigo: #6610f2;
+            --bs-purple: #6f42c1;
+            --bs-pink: #d63384;
+            --bs-red: #dc3545;
+            --bs-orange: #fd7e14;
+            --bs-yellow: #ffc107;
+            --bs-green: #198754;
+            --bs-teal: #20c997;
+            --bs-cyan: #0dcaf0;
+            --bs-white: #fff;
+            --bs-gray: #868e96;
+            --bs-gray-dark: #343a40;
+            --bs-gray-100: #f1f3f5;
+            --bs-gray-200: #e9ecef;
+            --bs-gray-300: #dee2e6;
+            --bs-gray-400: #ced4da;
+            --bs-gray-500: #adb5bd;
+            --bs-gray-600: #868e96;
+            --bs-gray-700: #495057;
+            --bs-gray-800: #343a40;
+            --bs-gray-900: #212529;
+            --bs-primary: #00c471;
+            --bs-secondary: #343a40;
+            --bs-success: #198754;
+            --bs-info: #0d6efd;
+            --bs-warning: #ffc107;
+            --bs-danger: #dc3545;
+            --bs-light: #f1f3f5;
+            --bs-dark: #212529;
+            --bs-body-bg: #fff;
+        }
+        html, body {
+            width: 100%;
+        }
+        a {
+            text-decoration: none;
+            color : inherit;
+        }
+        li {
+            list-style: none;
+        }
+        nav.nav ul{ 
+            margin : 0 auto;
+            display: flex;
+            justify-content: flex-start;
+            padding: 1.5% 10%;
+        }
+        .border {
+            border-bottom: 3px solid var(--bs-warning);
+        }
+        nav.nav ul li {
+            margin-right : 5%;
+        }
+        nav.nav {
+            background-color: var(--bs-dark);
+            color : var(--bs-white);
+            font-weight : 800;       
+            cursor: pointer;
+        }
+        nav.nav li:hover {
+            color : var(--bs-gray-400)
+        }
+        div.search_bar {
+            margin-bottom : 2%;
+        }
+        main#main {
+            width: 80%;
+            margin : 0 auto;
+            min-height: 500px;
+        }
+        .board_name {
+            font-weight: 800;letter-spacing: -1px;
+        }
+        .detail_content table {
+            width:100%;
+            margin-top : 15px;
+            border-collapse : collapse;
+        }
+        .detail_content table th {
+            background-color: var(--bs-yellow);
+            padding : 5px;
+        }
+        .detail_content table td {
+            background-color: var(--bs-white);
+            padding : 13px;
+            text-align: center;
+            border-bottom: 1px solid var(--bs-gray-300);
+        }
+        .detail_content table td a:hover{
+                color : var(--bs-orange)
+        }   
+        .board_paging {
+            width: 500px;
+            margin : 10px auto 20px;
+        }
+
+        .board_paging ul {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 15%;
+            margin: 0;
+        }
+
+        .board_paging li {
+            list-style-type: none;
+        }
+        div.back_btn {
+            width: 250px;
+            margin: 1% 0 0 2px;
+        }
+        div.back_btn button {
+            cursor: pointer;
+            width: 120px;
+            height: 100px;
+            background-color: var(--bs-orange);
+            color: var(--bs-white);
+            text-align: center;
+            height: 20px;
+            font-weight: 600;
+            border: 1px solid var(--bs-gray-600);
+        }
+
+        div.back_btn button:hover {
+            background-color: var(--bs-white);
+            color: var(--bs-orange);
+        }
+    </style>
+</head>
+    <body>
+        <div id="root">
+            <header>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/user/board/list">User</a></li>
+                        <li><a href="/order/board/list">Order</a></li>
+                        <li><a href="/order-item/board/list">Order Item</a></li>
+                        <li><a href="/item/board/list">Item</a></li>
+                        <li><a href="/store/board/list">Store</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <div class="border"> </div>
+            <main id = "main">
+                <!--board_list에서 넘어온 상세 페이지일 경우-->
+                {% if not regist_status %}
+                <h1 class="board_name">Item {{data['name']}}</h1>
+                {% else %}
+                {# 등록 후 상세 페이지일 경우 #}
+                <h1 class="board_name">Item {{data['name']}} 등록 완료! </h1>
+                {% endif %}
+                <section class="main_content"> 
+                    <div class="detail_content">
+                        <div class="back_btn">
+                            <!-- <a href="javascript:history.back()">뒤로가기</a> -->
+                            <button type='button' onclick="window.history.back()" style="display: inline-block;">뒤로가기</button>
+                            {% if regist_status %}
+                            <button type='button' onclick="window.location.href='{{url_for('common.home')}}'" style="display: inline-block;">홈으로 가기</button>
+                            {% endif %}
+                        </div>
+                        <table>
+                            <col width="40%"></col>
+                            <col width="20%"></col>
+                            <col width="20%"></col>
+                            <col width="20%"></col>
+                            <tr>
+                                {% for header in data.keys() %}
+                                <th>{{header}}</th>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                {% for value in data.values() %}
+                                <td>{{value}}</td>
+                                {% endfor %}
+                            </tr>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        <div class="border" style="margin-bottom:50px;"> </div>
+    </div>
+    </body>
+</html>
