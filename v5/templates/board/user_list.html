@@ -1,0 +1,76 @@
+{% extends 'components/board/layout.html' %}
+{% block title %}User List{% endblock %}
+{% block board_name %}Users{% endblock %}
+{% block search_bar %}
+    <div class="search_bar">
+    <form action="/user/board/list" method="get">
+        <label for="name">Name </label>
+        {% if name == "no search" %}
+        <input type="text" id="name" name="name"/>
+        {% else %}
+        <input type="text" id="name" name="name" value="{{name}}" style="font-weight: 600;"/>
+        {% endif %}
+
+        <div class="space"></div>
+        <label for="gender">Gender </label>
+        <select name="gender" id="gender" name="gender">
+            {% if gender == "no search" %}
+            <option value="Both">Both</option>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+            {% elif gender == "Both" %}
+            <option value="Both" selected>Both</option>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+            {% elif gender == "Female" %}
+            <option value="Both">Both</option>
+            <option value="Female" selected>Female</option>
+            <option value="Male">Male</option>
+            {% else %}
+            <option value="Both">Both</option>
+            <option value="Female">Female</option>
+            <option value="Male" selected>Male</option>
+            {% endif %}
+        </select>
+        <div class="space"></div>
+        <input type="submit" value="SEARCH">
+    </form>
+    </div>
+{% endblock %}
+{% block content %}
+    <table>
+        <col width="21%"></col>
+        <col width="17%"></col>
+        <col width="12%"></col>
+        <col width="26%"></col>
+        <col width="24%"></col>
+        {% if page_datas %}
+        {% set header = page_datas[0].keys() %}
+        <tr>
+            {% for value in header %}
+            {% if value != 'id' %}
+                <th>{{value}}</th>
+            {% endif %}
+            {% endfor %}
+        </tr>
+            {% for page_data in page_datas %}
+            {% set id = page_data['id'] %}
+            <tr onclick = window.location.href="{{ url_for('user.user_board_detail', id=id) }}">
+                {% for key, value in page_data.items() %}
+                    {% if key != "id" %}
+                        <td>{{value}}</td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr><td colspan="5">NO DATA</td></tr>
+        {% endif %}
+    </table>
+{% endblock %}
+{% block set_page_values %}
+    {% set pre_page_url = "{{ url_for('user.user_board_list', page_num=pre_page_num, name=name, gender=gender) }}" %}
+    {% set current_url = "{{ url_for('user.user_board_list', page_num=page, name=name, gender=gender) }}" %}
+    {% set page_num_url = "{{ url_for('user.user_board_list', page_num=page, name=name, gender=gender) }}" %}
+    {% set next_page_url = "{{ url_for('user.user_board_list', page_num=next_page_num, name=name, gender=gender) }}" %}
+{% endblock %}

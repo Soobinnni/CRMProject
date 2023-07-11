@@ -212,29 +212,7 @@
                     </div>
                     <div class="board_content">
                         <div> 
-                            <table>
-                                <col width="33%"></col>
-                                <col width="33%"></col>
-                                <col width="33%"></col>
-                                {% if page_datas %}
-                                {% set header = page_datas[0].keys() %}
-                                <tr>
-                                    {% for value in header %}
-                                    <th>{{value}}</th>
-                                    {% endfor %}
-                                </tr>
-                                    {% for page_data in page_datas %}
-                                    {% set id = page_data['id'] %}
-                                    <tr onclick = window.location.href="{{ url_for('order_item.order_item_board_detail', id=id) }}">
-                                        {% for key, value in page_data.items() %}
-                                        <td>{{value}}</td>
-                                        {% endfor %}
-                                    </tr>
-                                    {% endfor %}
-                                {% else %}
-                                    <tr><td colspan="5">NO DATA</td></tr>
-                                {% endif %}
-                            </table>
+                            
                         </div>    
                         <div class="board_paging">
                             <ul type="none">
@@ -243,15 +221,15 @@
                                     <li><a style="color:var(--bs-gray-600);">◀</a></li>
                                     {% else %}
                                     {% set pre_page_num = page_list[0]-3 %}
-                                    <li><a class="pre_page_btn" href="{{ url_for('order_item.order_item_board_list', page_num=pre_page_num) }}">◀</a></li>
+                                    <li><a class="pre_page_btn" href="">◀</a></li>
                                     {% endif %}
                                 {% endif %}
                                 {% if page_list != None %}
                                     {% for page in page_list %}
                                         {% if page == page_num %}
-                                        <li><a class="current_page" href="{{ url_for('order_item.order_item_board_list', page_num=page) }}">{{page}}</a></li>
+                                        <li><a class="current_page" href="">{{page}}</a></li>
                                         {% else %}
-                                        <li><a class="page_num" href="{{ url_for('order_item.order_item_board_list', page_num=page) }}">{{page}}</a></li>
+                                        <li><a class="page_num" href="">{{page}}</a></li>
                                         {% endif %}
                                     {%endfor%}
                                 {% endif %}
@@ -263,7 +241,7 @@
                                     {% if page_list[page_index] == total_page %}
                                     <li><a style="color:var(--bs-gray-600); cursor:default">▶</a></li>
                                     {% else %}
-                                    <li><a class="next_page_btn" href="{{ url_for('order_item.order_item_board_list', page_num=next_page_num) }}">▶</a></li>
+                                    <li><a class="next_page_btn" href="">▶</a></li>
                                     {% endif %}
                                 {% endif %}
                             </ul>

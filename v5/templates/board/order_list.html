@@ -1,0 +1,50 @@
+{% extends 'components/board/layout.html' %}
+{% block title %}Order List{% endblock %}
+{% block board_name %}Orders{% endblock %}
+{% block search_bar %}
+    <div class="search_bar">
+        <form action="{{url_for('order.order_board_list')}}" method="get">
+            <label for="order_at">Order At </label>
+            <div class="space"></div>
+            {% if name == "no search" %}
+            <input type="date" name="order_at" id="order_at" />
+            {% else %}
+            <input type="date" name="order_at" id="order_at"  value="{{order_at}}" style="font-weight: 600;"/>
+            {% endif %}
+            <div class="space"></div>
+            <input type="submit" value="SEARCH">
+        </form>
+    </div>
+{% endblock %}
+{% block content %}
+    <table>
+        <col width="30%"></col>
+        <col width="10%"></col>
+        <col width="30%"></col>
+        <col width="30%"></col>
+        {% if page_datas %}
+        {% set header = page_datas[0].keys() %}
+        <tr>
+            {% for value in header %}
+            <th>{{value}}</th>
+            {% endfor %}
+        </tr>
+            {% for page_data in page_datas %}
+            {% set id = page_data['id'] %}
+            <tr onclick = window.location.href="{{ url_for('order.order_board_detail', id=id) }}">
+                {% for key, value in page_data.items() %}
+                    <td>{{value}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr><td colspan="5">NO DATA</td></tr>
+        {% endif %}
+    </table>
+{% endblock %}
+{% block set_page_values %}
+    {% set pre_page_url = "{{ url_for('order.order_board_list', page_num=pre_page_num, order_at = order_at) }}" %}
+    {% set current_url = "{{ url_for('order.order_board_list', page_num=page, order_at = order_at) }}" %}
+    {% set page_num_url = "{{ url_for('order.order_board_list', page_num=page, order_at = order_at) }}" %}
+    {% set next_page_url = "{{ url_for('order.order_board_list', page_num=next_page_num, order_at = order_at) }}" %}
+{% endblock %}

@@ -1,0 +1,24 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+</head>
+<body>
+    <div id="root">
+        <div class="header">
+            {% include "components/home/header.html" %}
+        </div>
+        {% block content %}
+            <div class="border"></div>
+            <main id = "main">
+                {% block table_content %}{% endblock %}
+            </main>
+            <div class="border" style="margin-bottom:50px;"> </div>
+        {% endblock %}
+    </div>
+</body>
+</html>

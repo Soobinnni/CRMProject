@@ -29,7 +29,7 @@ def store_board_list():
 
     total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터
 
-    response = render_template("store/board/list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num, name = name, address = address)
+    response = render_template("board/store_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num, name = name, address = address)
     return response
 
 
@@ -55,7 +55,7 @@ def store_register():
         #log
         print('----------------------------view-store : @store_bp.route("/register", methods = ["GET"])')
         #응답
-        response = render_template("store/register.html")
+        response = render_template("register/store_register.html")
 
     elif request.method == 'POST' :
         #log

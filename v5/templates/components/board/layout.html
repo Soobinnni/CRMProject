@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <div id="root">
+      <header>{% include "components/board/nav.html" %}</header>
+      <div class="border"></div>
+      <main id="main">
+        <h1 class="board_name">{% block board_name %}{% endblock %}</h1>
+        <section class="main_content">
+          {% block search_bar %}{% endblock %}
+          <div class="board_content">
+            <div>{% block content %}{% endblock %}</div>
+            <div class="board_paging">
+              {% block set_page_values %}{% endblock %}
+              {% include "components/board/pagenation.html" %}
+            </div>
+          </div>
+        </section>
+      </main>
+      <div class="border" style="margin-bottom: 50px"></div>
+    </div>
+  </body>
+</html>

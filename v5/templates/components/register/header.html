@@ -1,0 +1,9 @@
+<a href="{{url}}">
+    {% for str in header_str %}
+    {% if str == ' ' %}
+    <span>&nbsp;</span>
+    {% else %}
+    <span>{{str}}</span>
+    {% endif %}
+    {% endfor %}
+</a>

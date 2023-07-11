@@ -1,0 +1,60 @@
+{% extends 'components/board/layout.html' %}
+{% block title %}Store List{% endblock %}
+{% block board_name %}Stores{% endblock %}
+{% block search_bar %}
+    <div class="search_bar">
+        <!-- Name, Type, Address 스타벅스 홍대8호점,스타벅스,부산 강남구 31로 50 : 어떤 검색 필터 기능을 추가할 것인지 생각하기-->
+        <form action="{{url_for('store.store_board_list')}}" method="get">
+            <label for="name">Name </label>
+            {% if name == "no search" %}
+            <input type="text" id="name" name="name"/>
+            {% else %}
+            <input type="text" id="name" name="name" value="{{name}}" style="font-weight: 600;"/>
+            {% endif %}
+            <div class="space"></div>
+            <label for="address">Address </label>
+            {% if name == "no search" %}
+            <input type="text" id="address" name="address"/>
+            {% else %}
+            <input type="text" id="address" name="address" value="{{address}}" style="font-weight: 600;"/>
+            {% endif %}
+            <div class="space"></div>
+            <input type="submit" value="SEARCH">
+        </form>
+    </div>
+{% endblock %}
+{% block content %}
+    <table>
+        <col width="40%"></col>
+        <col width="20%"></col>
+        <col width="40%"></col>
+        {% if page_datas %}
+        {% set header = page_datas[0].keys() %}
+        <tr>
+            {% for value in header %}
+            {% if value != 'id' %}
+                <th>{{value}}</th>
+            {% endif %}
+            {% endfor %}
+        </tr>
+            {% for page_data in page_datas %}
+            {% set id = page_data['id'] %}
+            <tr onclick = window.location.href="{{ url_for('store.store_board_detail', id=id) }}">
+                {% for key, value in page_data.items() %}
+                    {% if key != "id" %}
+                        <td>{{value}}</td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr><td colspan="5">NO DATA</td></tr>
+        {% endif %}
+    </table>
+{% endblock %}
+{% block set_page_values %}
+    {% set pre_page_url = "{{ url_for('store.store_board_list', page_num=pre_page_num, name = name, address = address ) }}" %}
+    {% set current_url = "{{ url_for('store.store_board_list', page_num=page, name = name, address = address ) }}" %}
+    {% set page_num_url = "{{ url_for('store.store_board_list', page_num=page, name = name, address = address ) }}" %}
+    {% set next_page_url = "{{ url_for('store.store_board_list', page_num=next_page_num, name = name, address = address ) }}" %}
+{% endblock %}

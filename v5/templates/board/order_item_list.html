@@ -1,0 +1,34 @@
+{% extends 'components/board/layout.html' %}
+{% block title %}Order Item List{% endblock %}
+{% block board_name %}Order Items{% endblock %}
+{% block content %}
+    <table>
+        <col width="33%"></col>
+        <col width="33%"></col>
+        <col width="33%"></col>
+        {% if page_datas %}
+        {% set header = page_datas[0].keys() %}
+        <tr>
+            {% for value in header %}
+            <th>{{value}}</th>
+            {% endfor %}
+        </tr>
+            {% for page_data in page_datas %}
+            {% set id = page_data['id'] %}
+            <tr onclick = window.location.href="{{ url_for('order_item.order_item_board_detail', id=id) }}">
+                {% for key, value in page_data.items() %}
+                <td>{{value}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr><td colspan="5">NO DATA</td></tr>
+        {% endif %}
+    </table>
+{% endblock %}
+{% block set_page_values %}
+    {% set pre_page_url = "{{ url_for('order_item.order_item_board_list', page_num=pre_page_num) }}" %}
+    {% set current_url = "{{ url_for('order_item.order_item_board_list', page_num=page) }}" %}
+    {% set page_num_url = "{{ url_for('order_item.order_item_board_list', page_num=page) }}" %}
+    {% set next_page_url = "{{ url_for('order_item.order_item_board_list', page_num=next_page_num) }}" %}
+{% endblock %}

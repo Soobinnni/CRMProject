@@ -27,7 +27,7 @@ def user_board_list():
 
     total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터
 
-    response = render_template("user/board/list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num, name=name, gender=gender)
+    response = render_template("board/user_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num, name=name, gender=gender)
     return response
 
 
@@ -53,7 +53,7 @@ def user_register():
         #log
         print('----------------------------view-user : @user_bp.route("/register", methods = ["GET"])')
         #응답
-        response = render_template("user/register.html")
+        response = render_template("register/user_register.html")
 
     elif request.method == 'POST' :
         #log
@@ -74,7 +74,7 @@ def user_register():
                 is_empty = True
 
         if is_empty :
-            response = render_template("user/register.html", is_empty = is_empty)
+            response = render_template("register/user_register.html", is_empty = is_empty)
         else : 
             # user domain init
             user = User(name, gender, birthdate, address)

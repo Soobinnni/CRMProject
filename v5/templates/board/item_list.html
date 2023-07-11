@@ -1,0 +1,65 @@
+{% extends 'components/board/layout.html' %}
+{% block title %}Item List{% endblock %}
+{% block board_name %}Items{% endblock %}
+{% block search_bar %}
+    <div class="search_bar">
+        <!--TODO : Name,Type,UnitPriceAmericano Coffee,Coffee,3000로 어떤 검색 필터를 만들지 생각하기-->
+        <form action="{{url_for('item.item_board_list')}}" method="get">
+            <label for="name">Name </label>
+            {% if name == "no search" %}
+            <input type="text" id="name" name="name"/>
+            {% else %}
+            <input type="text" id="name" name="name" value="{{name}}" style="font-weight: 600;"/>
+            {% endif %}
+            <div class="space"></div>
+            <label for="unit_price">Unit Price </label>
+                {% if unit_price == -1 %}
+                <input type="text" name="unit_price" id="unit_price" >
+                {% else %}
+                <input type="text" name="unit_price" id="unit_price" value="{{unit_price}}" style="font-weight: 600;">
+                {% endif %}
+            </select>
+            <div class="space"></div>
+            <input type="submit" value="SEARCH">
+        </form>
+    </div>
+{% endblock %}
+{% block content %}
+    <table>
+        <col width="33%"></col>
+        <col width="33%"></col>
+        <col width="33%"></col>
+        {% if page_datas %}
+        {% set header = page_datas[0].keys() %}
+        <tr>
+            {% for value in header %}
+            {% if value != 'id' %}
+                <th>{{value}}</th>
+            {% endif %}
+            {% endfor %}
+        </tr>
+            {% for page_data in page_datas %}
+            {% set id = page_data['id'] %}
+            <tr onclick = window.location.href="{{ url_for('item.item_board_detail', id=id) }}">
+                {% for key, value in page_data.items() %}
+                    {% if key != "id" %}
+                        {% if key == 'unit_price' %}
+                        <td><span>{{value}}</span><span>원</span></td>
+                        {% else %}
+                        <td>{{value}}</td>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr><td colspan="5">NO DATA</td></tr>
+        {% endif %}
+    </table>
+{% endblock %}
+{% block set_page_values %}
+    {% set pre_page_url = "{{ url_for('item.item_board_list', page_num = pre_page_num, name=name, unit_price = unit_price) }}" %}
+    {% set current_url = "{{ url_for('item.item_board_list', page_num = page, name=name, unit_price = unit_price) }}" %}
+    {% set page_num_url = "{{ url_for('item.item_board_list', page_num = page, name=name, unit_price = unit_price) }}" %}
+    {% set next_page_url = "{{ url_for('item.item_board_list', page_num=next_page_num, name=name, unit_price = unit_price) }}" %}
+{% endblock %}

@@ -18,7 +18,7 @@ def order_item_board_list():
     result = order_item_service.read_all()   
     total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터
 
-    response = render_template("order_item/board/list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num)
+    response = render_template("board/order_item_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num)
     return response
 
 

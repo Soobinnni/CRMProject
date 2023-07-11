@@ -1,0 +1,46 @@
+{% extends 'components/register/layout.html' %}
+{% block title %}Item Register{% endblock %}
+{% set header_str = "Item Register" %}
+{% set url = "{{url_for('item.item_register')}}" %}
+{% block content %}
+    {% block register_content %}
+        <div class="item_register_content">
+            <form action="{{ url_for('item.item_register') }}" method="post">
+                <table>
+                    <!--Type-->
+                    <tr>
+                        <td><label for="type">Type </label></td>
+                        <td>
+                            <select name="type" id="type">
+                            {% set type_dic = {'Cake' : 'cake', 'Coffee' : 'coffee', 'Juice' : 'juice'} %}
+                            {% for key, value in type_dic.items() %}
+                                <option value="{{key}}">{{value}}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <!--Name-->
+                    <tr>
+                        <td><label for="name">Name </label></td>
+                        <td><input type = "text" name = "name" placeholder="상품명을 입력하세요." id = "name"></td>
+                    </tr>
+                    <!--UnitPrice-->
+                    <tr>
+                        <td><label for="unit_price">UnitPrice </label></td>
+                        <td><input type = "text" name = "unit_price" placeholder="가격을 입력하세요" id = "unit_price"></td>
+                    </tr>
+                    <!-- 유효성 -->
+                    {% if is_empty %}
+                    <tr>
+                        <td colspan="2" style="font-size: 1em; color: var(--bs-warning);font-style: oblique;padding:10px;">데이터가 모두 입력되지 않았거나 올바르게 입력되지 않았습니다.</td>
+                    </tr>
+                    {% endif %}
+                </table>
+                <div class="item_register_btn">
+                    <input type="submit" value="등록하기"></td>
+                    <button type="button" onclick = "window.location.href = '/'">취소하기</button>
+                </div>
+            </form>
+        </div>
+    {% endblock %}
+{% endblock %}
