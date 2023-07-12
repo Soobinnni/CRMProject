@@ -1,0 +1,36 @@
+{% extends "components/board/detail/layout.html" %}
+{% block title %}Item Detail{% endblock %}</title>
+{% block board_name %}
+    {% if not regist_status %}
+        {# board_list에서 넘어온 상세 페이지일 경우 #}
+        Item {{data['name']}}
+    {% else %}
+        {# 등록 후 상세 페이지일 경우 #}
+        Item {{data['name']}} 등록 완료!
+    {% endif %}
+{% endblock %}
+{% block buttons %}
+    {# <a href="javascript:history.back()">뒤로가기</a> #}
+    <button type='button' onclick="window.history.back()" style="display: inline-block;">뒤로가기</button>
+    {% if regist_status %}
+    <button type='button' onclick="window.location.href='{{url_for('common.home')}}'" style="display: inline-block;">홈으로 가기</button>
+    {% endif %}
+{% endblock %}
+{% block table_content %}
+    <table>
+        <col width="40%"></col>
+        <col width="20%"></col>
+        <col width="20%"></col>
+        <col width="20%"></col>
+        <tr>
+            {% for header in data.keys() %}
+            <th>{{header}}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for value in data.values() %}
+            <td>{{value}}</td>
+            {% endfor %}
+        </tr>
+    </table>
+{% endblock %}

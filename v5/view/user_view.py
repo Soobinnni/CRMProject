@@ -42,7 +42,7 @@ def user_board_detail():
     data = user_service.read_id(id)
 
     #응답
-    response = render_template("user/board/detail.html", data = data, regist_status = regist_status )
+    response = render_template("board/user_detail.html", data = data, regist_status = regist_status )
     return response
 # --------------------------------------------------------register-----------------------------------------------------------------
 @user_bp.route("/register", methods = ['GET', 'POST'])

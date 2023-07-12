@@ -32,5 +32,5 @@ def order_item_board_detail():
     data = order_item_service.read_id(id)
 
     #응답
-    response = render_template("order_item/board/detail.html", data = data)
+    response = render_template("board/order_item_detail.html", data = data)
     return response

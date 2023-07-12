@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+    <body>
+        <div id="root">
+            <header>{% include "components/board/list/nav.html" %}</header>
+            <div class="border"> </div>
+            <main id = "main">
+                <!--board_list에서 넘어온 상세 페이지일 경우-->
+                <h1 class="board_name">{% block board_name %}{% endblock %}</h1>
+                <section class="main_content"> 
+                    <div class="detail_content">
+                        <div class="back_btn">
+                            {% block buttons %}{% endblock %}
+                        </div>
+                        {% block table_content %}{% endblock %}
+                    </div>
+                </section>
+            </main>
+        <div class="border" style="margin-bottom:50px;"> </div>
+    </div>
+    </body>
+</html>

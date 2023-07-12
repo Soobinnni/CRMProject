@@ -1,0 +1,26 @@
+{% extends "components/board/detail/layout.html" %}
+{% block title %}Order Item Detail{% endblock %}</title>
+{% block board_name %}
+    Order Item
+{% endblock %}
+{% block buttons %}
+    {# <a href="javascript:history.back()">뒤로가기</a> #}
+    <button type='button' onclick="window.history.back()" style="display: inline-block;">뒤로가기</button>
+{% endblock %}
+{% block table_content %}
+    <table>
+        <col width=33%"></col>
+        <col width="33%"></col>
+        <col width="33%"></col>
+        <tr>
+            {% for header in data.keys() %}
+            <th>{{header}}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for value in data.values() %}
+            <td>{{value}}</td>
+            {% endfor %}
+        </tr>
+    </table>
+{% endblock %}

@@ -8,7 +8,7 @@
   </head>
   <body>
     <div id="root">
-      <header>{% include "components/board/nav.html" %}</header>
+      <header>{% include "components/board/list/nav.html" %}</header>
       <div class="border"></div>
       <main id="main">
         <h1 class="board_name">{% block board_name %}{% endblock %}</h1>
@@ -18,7 +18,7 @@
             <div>{% block content %}{% endblock %}</div>
             <div class="board_paging">
               {% block set_page_values %}{% endblock %}
-              {% include "components/board/pagenation.html" %}
+              {% include "components/board/list/pagenation.html" %}
             </div>
           </div>
         </section>

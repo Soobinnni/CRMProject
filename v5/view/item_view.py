@@ -44,7 +44,7 @@ def item_board_detail():
     data = item_service.read_id(id)
 
     #응답
-    response = render_template("item/board/detail.html", data = data, regist_status = regist_status)
+    response = render_template("board/item_detail.html", data = data, regist_status = regist_status)
     return response
 
 # --------------------------------------------------------register-----------------------------------------------------------------
