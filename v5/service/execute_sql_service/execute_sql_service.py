@@ -10,6 +10,7 @@ class DML(Enum):
 class ExecuteSQLService:
     def get_conn_cursor(self) :
         conn = sqlite3.connect("db/crm.db")
+        # conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
 
         return conn, cursor
