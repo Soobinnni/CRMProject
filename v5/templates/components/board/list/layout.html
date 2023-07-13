@@ -17,8 +17,7 @@
           <div class="board_content">
             <div>{% block content %}{% endblock %}</div>
             <div class="board_paging">
-              {% block set_page_values %}{% endblock %}
-              {% include "components/board/list/pagenation.html" %}
+              {% block paging %}{% endblock %}
             </div>
           </div>
         </section>

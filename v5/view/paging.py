@@ -16,7 +16,6 @@ def get_page_info(page_num, per_page, interval, datas): #현재 페이지 번호
 
 def get_total_page(per_page, len_datas):
     total_page = 0
-    # if len_datas != 0 :
     total_page=math.ceil(len_datas/per_page)
     return total_page
 

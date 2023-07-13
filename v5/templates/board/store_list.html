@@ -52,9 +52,35 @@
         {% endif %}
     </table>
 {% endblock %}
-{% block set_page_values %}
-    {% set pre_page_url = "{{ url_for('store.store_board_list', page_num=pre_page_num, name = name, address = address ) }}" %}
-    {% set current_url = "{{ url_for('store.store_board_list', page_num=page, name = name, address = address ) }}" %}
-    {% set page_num_url = "{{ url_for('store.store_board_list', page_num=page, name = name, address = address ) }}" %}
-    {% set next_page_url = "{{ url_for('store.store_board_list', page_num=next_page_num, name = name, address = address ) }}" %}
+{% block paging %}
+    <ul type="none">
+        {% if page_list  %}
+            {% if page_list[0] == 1 %}
+            <li><a style="color:var(--bs-gray-600);">◀</a></li>
+            {% else %}
+            {% set pre_page_num = page_list[0]-3 %}
+            <li><a class="pre_page_btn" href="{{ url_for('store.store_board_list', page_num=pre_page_num, name = name, address = address ) }}">◀</a></li>
+            {% endif %}
+        {% endif %}
+        {% if page_list != None %}
+            {% for page in page_list %}
+                {% if page == page_num %}
+                <li><a class="current_page" href="{{ url_for('store.store_board_list', page_num=page, name = name, address = address ) }}">{{page}}</a></li>
+                {% else %}
+                <li><a class="page_num" href="{{ url_for('store.store_board_list', page_num=page, name = name, address = address ) }}">{{page}}</a></li>
+                {% endif %}
+            {%endfor%}
+        {% endif %}
+        {% if page_list  %}
+            {# jinja2의 주석 / len()함수 대신 "대상 | length 활용" #}
+            {% set page_length = page_list | length %}
+            {% set page_index = page_length-1 %}
+            {% set next_page_num = page_list[page_index]+1 %}
+            {% if page_list[page_index] == total_page %}
+            <li><a style="color:var(--bs-gray-600); cursor:default">▶</a></li>
+            {% else %}
+            <li><a class="next_page_btn" href="{{ url_for('store.store_board_list', page_num=next_page_num, name = name, address = address ) }}">▶</a></li>
+            {% endif %}
+        {% endif %}
+    </ul>
 {% endblock %}

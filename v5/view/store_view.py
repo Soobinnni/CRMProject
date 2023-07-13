@@ -44,7 +44,7 @@ def store_board_detail():
     data = store_service.read_id(id)
 
     #응답
-    response = render_template("store/board/detail.html", data = data, regist_status = regist_status)
+    response = render_template("board/store_detail.html", data = data, regist_status = regist_status)
     return response
 
 # --------------------------------------------------------register-----------------------------------------------------------------

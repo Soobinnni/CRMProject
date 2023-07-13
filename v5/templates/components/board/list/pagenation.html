@@ -4,15 +4,15 @@
         <li><a style="color:var(--bs-gray-600);">◀</a></li>
         {% else %}
         {% set pre_page_num = page_list[0]-3 %}
-        <li><a class="pre_page_btn" href="{{ url_for('item.item_board_list', page_num = pre_page_num, name=name, unit_price = unit_price) }}">◀</a></li>
+        <li><a class="pre_page_btn" href="{{ pre_page_url }}">◀</a></li>
         {% endif %}
     {% endif %}
     {% if page_list != None %}
         {% for page in page_list %}
             {% if page == page_num %}
-            <li><a class="current_page" href="{{ url_for('item.item_board_list', page_num = page, name=name, unit_price = unit_price) }}">{{page}}</a></li>
+            <li><a class="current_page" href="{{ current_url }}">{{page}}</a></li>
             {% else %}
-            <li><a class="page_num" href="{{ url_for('item.item_board_list', page_num = page, name=name, unit_price = unit_price) }}">{{page}}</a></li>
+            <li><a class="page_num" href="{{ page_num_url }}">{{page}}</a></li>
             {% endif %}
         {%endfor%}
     {% endif %}
@@ -24,7 +24,7 @@
         {% if page_list[page_index] == total_page %}
         <li><a style="color:var(--bs-gray-600); cursor:default">▶</a></li>
         {% else %}
-        <li><a class="next_page_btn" href="{{ url_for('item.item_board_list', page_num=next_page_num, name=name, unit_price = unit_price) }}">▶</a></li>
+        <li><a class="next_page_btn" href="{{ next_page_url }}">▶</a></li>
         {% endif %}
     {% endif %}
 </ul>
