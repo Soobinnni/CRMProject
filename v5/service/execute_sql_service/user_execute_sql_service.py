@@ -6,79 +6,58 @@ import sqlite3
 class UserService(ExecuteSQLService) :
 # =========================================================CREATE=========================================================
     def create(self, user) :
-        #log
-        print('----------------------------service-user : create()')
+        user = user #domain
 
-        #domain
-        user = user
-
-        # uuid init, object property -> tuple
-        id = user.id = mk_uuid()
-        user_tuple = self.properties_to_tuple(user)
-
-        #execute sql
+        id = user.id = mk_uuid() # uuid init
+        user_tuple = self.properties_to_tuple(user) # object property -> tuple
+        
         sql = "INSERT INTO user(id, name, gender, birthdate, age, address) VALUES (?, ?, ?, ?, ?, ?)"
         args = user_tuple
-        self.execute_sql(DML.INSERT, sql, args)
+        self.execute_sql(DML.INSERT, sql, args) #execute sql
 
-        #return
         return id
     
 # =========================================================READ=========================================================
     def read_all(self):
-        #log
-        print('----------------------------service-user : read_all()')
-        
-        #execute sql
         sql = "SELECT * FROM user"
-        result = self.execute_sql(DML.SELECT, sql)
+        result = self.execute_sql(DML.SELECT, sql) #execute sql
         return result
     
     def read_name_gender(self, name, gender):
-        #log
-        print('----------------------------service-user : read_name_gender()')
-        
-        #execute sql
         result = None
-        sql = f"SELECT * FROM user WHERE name LIKE '%{name}%' "
+        sql = "SELECT * FROM user WHERE name LIKE ? "
         if(gender != 'Both') :
             sql += "AND gender = ?"
-            args = (gender,)
-            result = self.execute_sql(DML.SELECT, sql, args)
+            args = (f"%{name}%",gender)
+            result = self.execute_sql(DML.SELECT, sql, args) #execute sql
         else :
-            result = self.execute_sql(DML.SELECT, sql)    
+            args = (f"%{name}%",)
+            result = self.execute_sql(DML.SELECT, sql, args) #execute sql   
         
         return result
     
     def read_id(self, id):
-        #log
-        print('----------------------------service-user : read_id()')
-
         #execute sql
         sql = "SELECT * FROM user WHERE id = ?"
         args = (id,)
-        result = self.execute_sql(DML.SELECTONE, sql, args)
+        result = self.execute_sql(DML.SELECTONE, sql, args) #execute sql
         return result
     
     def read_order(self, id) :
-        #log
-        print('----------------------------service-user : read_order()')
-
-        #execute sql
         sql = """
             SELECT o.id AS "order id", o.ordered_at AS "purchased date", s.id AS "purchased location"
             FROM "user" u
             JOIN "order" o ON u.id = o.user_id
             JOIN store s ON o.store_id = s.id
-            WHERE o.id = ?
+            WHERE u.id = ?
             ORDER BY o.ordered_at DESC
         """
         args = (id,)
-        result = self.execute_sql(DML.SELECT, sql, args)
+        result = self.execute_sql(DML.SELECT, sql, args) #execute sql
         return result
 
     
-# =========================================================etc-=========================================================
+# =========================================================etc=========================================================
     # object property -> tuple
     def properties_to_tuple(self, obj) :
         return tuple(obj.__dict__.values())

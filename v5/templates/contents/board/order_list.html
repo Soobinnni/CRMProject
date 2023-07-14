@@ -6,7 +6,7 @@
         <form action="{{url_for('order.order_board_list')}}" method="get">
             <label for="order_at">Order At </label>
             <div class="space"></div>
-            {% if name == "no search" %}
+            {% if not order_at %}
             <input type="date" name="order_at" id="order_at" />
             {% else %}
             <input type="date" name="order_at" id="order_at"  value="{{order_at}}" style="font-weight: 600;"/>

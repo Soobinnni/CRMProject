@@ -36,8 +36,10 @@
         </tr>
     </table>
 {% endblock %}
-{% block relative_detail_header %}주문정보{% endblock %}
+
+{% block relative_detail_header %}{% if user_order_data %}주문정보{% endif%}{% endblock %}
 {% block relative_detail_content %}
+    {% if user_order_data %}
     <table>
         <col width="40%"></col>
         <col width="20%"></col>
@@ -55,4 +57,5 @@
         </tr>
         {% endfor %}
     </table>
+    {% endif %}
 {% endblock %}

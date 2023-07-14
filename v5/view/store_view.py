@@ -9,22 +9,19 @@ store_service = StoreExecuteSQLService()
 
 @store_bp.route("/board/list")
 def store_board_list():
-    #log
-    print('----------------------------view-store : @store_bp.route("/store/board/list")')
     # parameter values
     page_num = request.args.get("page_num", type=int, default=1)
-    name = request.args.get("name", type=str, default="no search").strip()
-    address = request.args.get("address", type=str, default="no search").strip()
+    name = request.args.get("name", type=str, default=" ").strip()
+    address = request.args.get("address", type=str, default=" ").strip()
     
-    # result
     result = []
-    if name == "no search" and address == "no search":
+    if (not name and not address) :
         result = store_service.read_all()
-    elif len(name) == 0 :
+    elif not name :
         result = store_service.read_address(address)
-    elif len(address) == 0 :
+    elif not address :
         result = store_service.read_name(name)
-    elif (len(address)!=0) and (len(name)!=0) :
+    elif name and address :
         result = store_service.read_name_address(name, address)
 
     total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터

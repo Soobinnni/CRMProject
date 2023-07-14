@@ -4,71 +4,39 @@ from service.execute_sql_service.execute_sql_service import ExecuteSQLService, D
 class ItemExecuteSQLService(ExecuteSQLService):
 # =========================================================CREATE=========================================================
     def create(self, item) :
-        #log
-        print('----------------------------service-item : create()')
-
-        #domain
-        item = item
-
-        # uuid init, object property -> tuple
-        id = item.id = mk_uuid()
-        item_tuple = self.properties_to_tuple(item)
+        item = item #domain
+        id = item.id = mk_uuid() # uuid init
+        item_tuple = self.properties_to_tuple(item) # object property -> tuple
         
-        #execute sql
         sql = "INSERT INTO item(id, name, type, unit_price) VALUES (?, ?, ?, ?)"
         args = item_tuple
-        self.execute_sql(DML.INSERT, sql, args)
+        self.execute_sql(DML.INSERT, sql, args) #execute sql
 
-        #return
         return id
     
 # =========================================================READ=========================================================
     def read_all(self):
-        #log
-        print('----------------------------service-item : read_all()')
-        
-        #execute sql
+        # execute sql
         sql = "SELECT * FROM item"
-        result = self.execute_sql(DML.SELECT, sql)
+        result = self.execute_sql(DML.SELECT, sql) #execute sql
         return result
-    
-    def read_name(self, name):
-        #log
-        print('----------------------------service-item : read_name()')
-        
-        #execute sql
-        sql = f"SELECT * FROM item WHERE name LIKE '%{name}%'"
-        result = self.execute_sql(DML.SELECT, sql)
-        return result
-    
-    def read_price(self, price):
-        #log
-        print('----------------------------service-item : read_price()')
-        
-        #execute sql
-        sql = "SELECT * FROM item WHERE unit_price = ?"
-        args = (price,)
-        result = self.execute_sql(DML.SELECT, sql, args)
-        return result
-    
-    def read_name_price(self, name, price):
-        #log
-        print('----------------------------service-item : read_name_price()')
-        
-        #execute sql
-        sql = f"SELECT * FROM item WHERE name LIKE '%{name}%' AND unit_price = ?"
-        args = (price,)
-        result = self.execute_sql(DML.SELECT, sql, args)
+
+    def read_kwargs(self, **kwargs):
+        sql = "SELECT * FROM item WHERE "
+        args = ()
+        for key, value in kwargs.items() : 
+            if(value) :
+                sql += key + ' = ? '
+                args += (value, )
+        kwargs
+        args = (f'%{name}%', price)
+        result = self.execute_sql(DML.SELECT, sql, args) #execute sql
         return result
     
     def read_id(self, id):
-        #log
-        print('----------------------------service : read_id()')
-        
-        #execute sql
         sql = "SELECT * FROM item WHERE id = ?"
         args = (id,)
-        result = self.execute_sql(DML.SELECTONE, sql, args)
+        result = self.execute_sql(DML.SELECTONE, sql, args) #execute sql
         return result
     
 # =========================================================etc-=========================================================

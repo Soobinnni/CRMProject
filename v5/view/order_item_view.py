@@ -8,12 +8,8 @@ order_item_service = OrderItemExecuteSQLService()
 
 @order_item_bp.route("/board/list")
 def order_item_board_list():
-    #log
-    print('----------------------------view-order-item : @order_item_bp.route("/order-item/board/list")')
-    # parameter values
-    page_num = request.args.get("page_num", type=int, default=1)
+    page_num = request.args.get("page_num", type=int) # parameter values
 
-    # result
     result = []
     result = order_item_service.read_all()   
     total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터

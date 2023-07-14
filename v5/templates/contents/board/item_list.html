@@ -6,14 +6,14 @@
         <!--TODO : Name,Type,UnitPriceAmericano Coffee,Coffee,3000로 어떤 검색 필터를 만들지 생각하기-->
         <form action="{{url_for('item.item_board_list')}}" method="get">
             <label for="name">Name </label>
-            {% if name == "no search" %}
+            {% if not name %}
             <input type="text" id="name" name="name"/>
             {% else %}
             <input type="text" id="name" name="name" value="{{name}}" style="font-weight: 600;"/>
             {% endif %}
             <div class="space"></div>
             <label for="unit_price">Unit Price </label>
-                {% if unit_price == -1 %}
+                {% if not unit_price %}
                 <input type="text" name="unit_price" id="unit_price" >
                 {% else %}
                 <input type="text" name="unit_price" id="unit_price" value="{{unit_price}}" style="font-weight: 600;">

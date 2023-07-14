@@ -6,14 +6,14 @@
         <!-- Name, Type, Address 스타벅스 홍대8호점,스타벅스,부산 강남구 31로 50 : 어떤 검색 필터 기능을 추가할 것인지 생각하기-->
         <form action="{{url_for('store.store_board_list')}}" method="get">
             <label for="name">Name </label>
-            {% if name == "no search" %}
+            {% if not name %}
             <input type="text" id="name" name="name"/>
             {% else %}
             <input type="text" id="name" name="name" value="{{name}}" style="font-weight: 600;"/>
             {% endif %}
             <div class="space"></div>
             <label for="address">Address </label>
-            {% if name == "no search" %}
+            {% if not address %}
             <input type="text" id="address" name="address"/>
             {% else %}
             <input type="text" id="address" name="address" value="{{address}}" style="font-weight: 600;"/>

@@ -18,8 +18,14 @@
             {% endfor %}
         </tr>
         <tr>
-            {% for value in data.values() %}
-            <td>{{value}}</td>
+            {% for key in data.keys() %}   
+                {% if key == 'order id' %}
+                    <td><a href = "{{ url_for('order.order_board_detail', id = data[key]) }}">{{data[key]}}</a></td> 
+                {% elif key == 'item id' %}
+                    <td><a href = "{{ url_for('item.item_board_detail', id = data[key]) }}">{{data[key]}}</a></td> 
+                {% else %}
+                    <td>{{data[key]}}</td>
+                {% endif %}
             {% endfor %}
         </tr>
     </table>

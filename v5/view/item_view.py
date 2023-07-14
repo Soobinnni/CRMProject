@@ -9,22 +9,16 @@ item_service = ItemExecuteSQLService()
 
 @item_bp.route("/board/list")
 def item_board_list():
-    #log
-    print('----------------------------view-item : @item_bp.route("/item/board/list")')
     # parameter values
     page_num = request.args.get("page_num", type=int, default=1)
-    name = request.args.get("name", type=str, default="no search")
-    unit_price = request.args.get("unit_price", type=int, default=-1)
-    # result
+    name = request.args.get("name", type=str, default=" ").strip()
+    unit_price = request.args.get("unit_price", type=int)
+    
     result = []
-    if (name == 'no search') and (unit_price == -1):
+    if (not name and not unit_price) :
         result = item_service.read_all()
-    elif (len(name) !=0) and ( unit_price == -1) :
-        result = item_service.read_name(name)
-    elif (len(name) ==0) and ( unit_price != -1) :
-        result = item_service.read_price(unit_price)
-    elif (len(name) !=0) and ( unit_price != -1) :
-        result = item_service.read_name_price(name, unit_price)
+    elif (name or unit_price) :
+        result = item_service.read_kwargs(name=name, unit_price=unit_price)
 
     total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터
 

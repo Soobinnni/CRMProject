@@ -7,8 +7,9 @@
     {# <a href="javascript:history.back()">뒤로가기</a> #}
     <button type='button' onclick="window.history.back()" style="display: inline-block;">뒤로가기</button>
 {% endblock %}
-{% block relative_detail_header %}상품 주문 정보{% endblock %}
+{% block relative_detail_header %}{% if data %}상품 주문 정보{% endif %}{% endblock %}
 {% block relative_detail_content %}
+    {% if data %}
     <table>
         <col width="28%"></col>
         <col width="28%"></col>
@@ -27,4 +28,5 @@
         </tr>
         {% endfor %}
     </table>
+    {% endif %}
 {% endblock %}

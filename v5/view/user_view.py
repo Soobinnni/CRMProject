@@ -9,16 +9,12 @@ user_service = UserService()
 # --------------------------------------------------------board-----------------------------------------------------------------
 @user_bp.route("/board/list")
 def user_board_list():
-    #log
-    print('----------------------------view-user : @user_bp.route("/user/board/list")')
     # parameter values
     page_num = request.args.get("page_num", type=int, default=1)
     name = request.args.get("name", default="no search", type=str).strip()
     gender = request.args.get("gender", default="no search", type=str)
 
-    # result
     result = []
-
     # service
     if( name == 'no search' and gender == 'no search' ):
         result = user_service.read_all()
@@ -33,20 +29,14 @@ def user_board_list():
 
 @user_bp.route("/board/detail")
 def user_board_detail():
-    #log
-    print('----------------------------view-user : @user_bp.route("/user/board/detail")')
     # parameter value
     id = request.args.get("id", type=str)
     regist_status = request.args.get("regist_status", type=bool, default=False)
 
-    #service
-    # 1. user detail
-    user_data = user_service.read_id(id)
-    # 2. user order
-    user_order_data = user_service.read_order(id)
-    print(user_order_data)
+    #service   
+    user_data = user_service.read_id(id) # 1. user detail
+    user_order_data = user_service.read_order(id) # 2. user order
 
-    #응답
     response = render_template("contents/board/user_detail.html", user_data = user_data, user_order_data = user_order_data, regist_status = regist_status )
     return response
 # --------------------------------------------------------register-----------------------------------------------------------------
@@ -55,23 +45,16 @@ def user_register():
 
     response = None
     if request.method == 'GET' :
-        #log
-        print('----------------------------view-user : @user_bp.route("/register", methods = ["GET"])')
-        #응답
-        response = render_template("register/user_register.html")
+        response = render_template("contents/register/user_register.html")
 
     elif request.method == 'POST' :
-        #log
-        print('----------------------------view-user : @user_bp.route("/register", methods = ["POST"])')
-        
         # form value
         name = request.form['name'].strip()
         gender =  request.form['gender']
         birthdate =  request.form['birthdate']
         address =  request.form['address'].strip()
 
-        # 유효성 검사
-        is_empty = False
+        is_empty = False # 유효성 검사
         is_empty_list = [(len(name) == 0), (len(address) == 0)]
 
         for form_data in is_empty_list : 
@@ -81,16 +64,10 @@ def user_register():
         if is_empty :
             response = render_template("contents/register/user_register.html", is_empty = is_empty)
         else : 
-            # user domain init
-            user = User(name, gender, birthdate, address)
+            user = User(name, gender, birthdate, address) # user domain init
+            user_id = user_service.create(user) # user create service, uuid get
+            regist_status = True # 등록 여부
 
-            # user create service, uuid get
-            user_id = user_service.create(user)
-
-            # 등록 여부
-            regist_status = True
-
-            #응답
             response = redirect(url_for('user.user_board_detail', id = user_id, regist_status = regist_status))
 
     return response

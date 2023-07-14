@@ -8,10 +8,6 @@ class User() :
         self.age = self.cal_age(birthdate)
         self.address = address
 
-    # getter를 만들기 위해 @property 데코레이터를 사용한다. 함수 이름은 변수명과 동일하게 작성하는 관례가 있다. 
-    # 그리고 setter를 만들기 위해 @변수.setter를 사용한다. 
-    # 마찬가지로 변수명과 동일한 함수명을 사용하는 관례가 있다.
-
     @property
     def id(self):
         return self.__id
