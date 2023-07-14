@@ -26,9 +26,16 @@ class OrderExecuteSQLService(ExecuteSQLService):
         print('----------------------------service-order : read_id()')
         
         #execute sql
-        sql = """SELECT * FROM "order" WHERE id = ?"""
+        sql = """
+            SELECT oi.id AS "id", oi.order_id AS "order id", oi.item_id AS "item id", i.name AS "item name"
+            FROM "order" o
+            JOIN "order_item" oi ON o.id = oi.order_id
+            JOIN item i ON oi.item_id = i.id
+            WHERE o.id = ?
+            ORDER BY o.ordered_at DESC
+        """
         args = (id,)
-        result = self.execute_sql(DML.SELECTONE, sql, args)
+        result = self.execute_sql(DML.SELECT, sql, args)
         return result
 # =========================================================etc-=========================================================
     # object property -> tuple

@@ -70,7 +70,7 @@ class UserService(ExecuteSQLService) :
             FROM "user" u
             JOIN "order" o ON u.id = o.user_id
             JOIN store s ON o.store_id = s.id
-            WHERE u.id = ?
+            WHERE o.id = ?
             ORDER BY o.ordered_at DESC
         """
         args = (id,)

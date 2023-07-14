@@ -32,7 +32,7 @@ def order_board_detail():
     print('----------------------------view-order : @order_bp.route("/order/board/detail")')
     # parameter value
     id = request.args.get("id", type=str)
-    #service호출
+    #service
     data = order_service.read_id(id)
 
     #응답

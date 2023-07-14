@@ -7,21 +7,24 @@
     {# <a href="javascript:history.back()">뒤로가기</a> #}
     <button type='button' onclick="window.history.back()" style="display: inline-block;">뒤로가기</button>
 {% endblock %}
-{% block table_content %}
+{% block relative_detail_header %}상품 주문 정보{% endblock %}
+{% block relative_detail_content %}
     <table>
-        <col width="30%"></col>
-        <col width="10%"></col>
-        <col width="30%"></col>
-        <col width="30%"></col>
+        <col width="28%"></col>
+        <col width="28%"></col>
+        <col width="28%"></col>
+        <col width="16%"></col>
         <tr>
-            {% for header in data.keys() %}
+            {% for header in data[0].keys() %}
             <th>{{header}}</th>
             {% endfor %}
         </tr>
+        {% for dic in data %}
         <tr>
-            {% for value in data.values() %}
+            {% for value in dic.values() %}
             <td>{{value}}</td>
             {% endfor %}
         </tr>
+        {% endfor %}
     </table>
 {% endblock %}
