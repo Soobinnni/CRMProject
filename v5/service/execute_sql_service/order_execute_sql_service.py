@@ -9,9 +9,8 @@ class OrderExecuteSQLService(ExecuteSQLService):
         return result
     
     def read_kwargs(self, **kwargs):
-        sql = """SELECT * FROM "order" WHERE """
         where_sentence, where_args = self.mk_where_condition(kwargs)
-        sql += where_sentence
+        sql = f"""SELECT * FROM "order" WHERE {where_sentence}"""
         result = self.execute_sql(DML.SELECT, sql, where_args) #execute sql
         return result
 

@@ -8,7 +8,7 @@ order_item_service = OrderItemExecuteSQLService()
 
 @order_item_bp.route("/board/list")
 def order_item_board_list():
-    page_num = request.args.get("page_num", type=int) # parameter values
+    page_num = request.args.get("page_num", type=int, default=1) # parameter values
 
     result = []
     result = order_item_service.read_all()   

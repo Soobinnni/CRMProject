@@ -35,7 +35,7 @@ class ExecuteSQLService:
         return result
     
     def mk_where_condition(self, condition_dict) :
-        where_sentence = " "
+        where_sentence = ""
         where_args = ()
         for key, value in condition_dict.items() : 
             if(value) :
