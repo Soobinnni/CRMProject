@@ -3,7 +3,7 @@ from service.execute_sql_service.execute_sql_service import ExecuteSQLService, D
 
 import sqlite3
 
-class UserService(ExecuteSQLService):
+class UserService(ExecuteSQLService) :
 # =========================================================CREATE=========================================================
     def create(self, user) :
         #log
@@ -59,6 +59,24 @@ class UserService(ExecuteSQLService):
         args = (id,)
         result = self.execute_sql(DML.SELECTONE, sql, args)
         return result
+    
+    def read_order(self, id) :
+        #log
+        print('----------------------------service-user : read_order()')
+
+        #execute sql
+        sql = """
+            SELECT o.id AS "order id", o.ordered_at AS "purchased date", s.id AS "purchased location"
+            FROM "user" u
+            JOIN "order" o ON u.id = o.user_id
+            JOIN store s ON o.store_id = s.id
+            WHERE u.id = ?
+            ORDER BY o.ordered_at DESC
+        """
+        args = (id,)
+        result = self.execute_sql(DML.SELECT, sql, args)
+        return result
+
     
 # =========================================================etc-=========================================================
     # object property -> tuple

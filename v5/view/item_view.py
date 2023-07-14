@@ -28,7 +28,7 @@ def item_board_list():
 
     total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터
 
-    response = render_template("board/item_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num, name=name, unit_price = unit_price)
+    response = render_template("contents/board/item_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num, name=name, unit_price = unit_price)
     return response
 
 
@@ -44,7 +44,7 @@ def item_board_detail():
     data = item_service.read_id(id)
 
     #응답
-    response = render_template("board/item_detail.html", data = data, regist_status = regist_status)
+    response = render_template("contents/board/item_detail.html", data = data, regist_status = regist_status)
     return response
 
 # --------------------------------------------------------register-----------------------------------------------------------------
@@ -55,7 +55,7 @@ def item_register():
         #log
         print('----------------------------view-item : @item_bp.route("/register", methods = ["GET"])')
         #응답
-        response = render_template("register/item_register.html")
+        response = render_template("contents/register/item_register.html")
 
     elif request.method == 'POST' :
         #log
@@ -88,7 +88,7 @@ def item_register():
                 is_empty = True
 
         if is_empty :
-            response = render_template("item/register.html", is_empty = is_empty)
+            response = render_template("contents/item/register.html", is_empty = is_empty)
         else : 
             # mk name ex: Americano Coffee
             name = name + " " +type_

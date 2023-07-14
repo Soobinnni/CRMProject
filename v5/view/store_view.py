@@ -29,7 +29,7 @@ def store_board_list():
 
     total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터
 
-    response = render_template("board/store_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num, name = name, address = address)
+    response = render_template("contents/board/store_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num, name = name, address = address)
     return response
 
 
@@ -44,7 +44,7 @@ def store_board_detail():
     data = store_service.read_id(id)
 
     #응답
-    response = render_template("board/store_detail.html", data = data, regist_status = regist_status)
+    response = render_template("contents/board/store_detail.html", data = data, regist_status = regist_status)
     return response
 
 # --------------------------------------------------------register-----------------------------------------------------------------
@@ -55,7 +55,7 @@ def store_register():
         #log
         print('----------------------------view-store : @store_bp.route("/register", methods = ["GET"])')
         #응답
-        response = render_template("register/store_register.html")
+        response = render_template("contents/register/store_register.html")
 
     elif request.method == 'POST' :
         #log
@@ -89,7 +89,7 @@ def store_register():
                 is_empty = True
 
         if is_empty :
-            response = render_template("store/register.html", is_empty = is_empty)
+            response = render_template("contents/store/register.html", is_empty = is_empty)
         else : 
             # mk name ex: 스타벅스 홍대8호점
             name = type_ + " " + local + str(store_num)+"호점"

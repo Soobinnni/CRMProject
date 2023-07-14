@@ -22,7 +22,7 @@ def order_board_list():
 
     total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터
 
-    response = render_template("board/order_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num, order_at = order_at)
+    response = render_template("contents/board/order_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num, order_at = order_at)
     return response
 
 
@@ -36,5 +36,5 @@ def order_board_detail():
     data = order_service.read_id(id)
 
     #응답
-    response = render_template("board/order_detail.html", data = data)
+    response = render_template("contents/board/order_detail.html", data = data)
     return response

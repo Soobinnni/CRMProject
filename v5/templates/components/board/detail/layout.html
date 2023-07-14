@@ -18,7 +18,19 @@
                         <div class="back_btn">
                             {% block buttons %}{% endblock %}
                         </div>
-                        {% block table_content %}{% endblock %}
+                        <div class="detail_info">
+                            <div class="detail_list">
+                                {% block table_content %}{% endblock %}
+                            </div>
+                            <div class="relative_detail_list">
+                                <div class="relative_detail_header">
+                                   <h4>{% block relative_detail_header %}{% endblock %}</h4>
+                                </div>
+                                <div class="relative_detail_content">
+                                    {% block relative_detail_content %}{% endblock %}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </main>

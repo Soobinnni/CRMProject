@@ -4,5 +4,5 @@ common_bp = Blueprint('common', __name__)
 
 @common_bp.route("/")
 def home():
-    response = render_template("home.html")
+    response = render_template("contents/home.html")
     return response

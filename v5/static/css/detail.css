@@ -31,22 +31,22 @@ main#main {
 .board_name {
     font-weight: 800;letter-spacing: -1px;
 }
-.detail_content table {
+.detail_content .detail_info .detail_list table {
     width:100%;
     margin-top : 15px;
     border-collapse : collapse;
 }
-.detail_content table th {
+.detail_content .detail_info .detail_list table th {
     background-color: var(--bs-yellow);
     padding : 5px;
 }
-.detail_content table td {
+.detail_content .detail_info .detail_list table td {
     background-color: var(--bs-white);
     padding : 13px;
     text-align: center;
     border-bottom: 1px solid var(--bs-gray-300);
 }
-.detail_content table td a:hover{
+.detail_content .detail_info .detail_list table td a:hover{
         color : var(--bs-orange)
 }   
 .board_paging {
@@ -83,4 +83,8 @@ div.back_btn button {
 div.back_btn button:hover {
     background-color: var(--bs-white);
     color: var(--bs-orange);
+}
+
+.relative_detail_header {
+    margin : 60px 0 10px;
 }

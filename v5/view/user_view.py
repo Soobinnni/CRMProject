@@ -27,7 +27,7 @@ def user_board_list():
 
     total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터
 
-    response = render_template("board/user_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num, name=name, gender=gender)
+    response = render_template("contents/board/user_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num, name=name, gender=gender)
     return response
 
 
@@ -38,11 +38,16 @@ def user_board_detail():
     # parameter value
     id = request.args.get("id", type=str)
     regist_status = request.args.get("regist_status", type=bool, default=False)
-    #service호출
-    data = user_service.read_id(id)
+
+    #service
+    # 1. user detail
+    user_data = user_service.read_id(id)
+    # 2. user order
+    user_order_data = user_service.read_order(id)
+    print(user_order_data)
 
     #응답
-    response = render_template("board/user_detail.html", data = data, regist_status = regist_status )
+    response = render_template("contents/board/user_detail.html", user_data = user_data, user_order_data = user_order_data, regist_status = regist_status )
     return response
 # --------------------------------------------------------register-----------------------------------------------------------------
 @user_bp.route("/register", methods = ['GET', 'POST'])
@@ -74,7 +79,7 @@ def user_register():
                 is_empty = True
 
         if is_empty :
-            response = render_template("register/user_register.html", is_empty = is_empty)
+            response = render_template("contents/register/user_register.html", is_empty = is_empty)
         else : 
             # user domain init
             user = User(name, gender, birthdate, address)

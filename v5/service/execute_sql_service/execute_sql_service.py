@@ -42,19 +42,19 @@ class ExecuteSQLService:
             cursor.execute(sql, args)
         else : 
             cursor.execute(sql)
-        columns = [column[0] for column in cursor.description]  #[컬럼명, ...]
+        columns = [column[0] for column in cursor.description] 
         rows = cursor.fetchall()
         result = []
         for row in rows:
-            result.append(dict(zip(columns, row)))  # key : value = column : column value
+            result.append(dict(zip(columns, row))) 
         return result
 
     def fetchone_as_dict(self, cursor, sql, args):
         cursor.execute(sql, args)
 
-        columns = [column[0] for column in cursor.description]  #[컬럼명, ...]
+        columns = [column[0] for column in cursor.description]
         row = cursor.fetchone()
         result = {}
         for i, r in enumerate(row):
-            result[columns[i]] = r  # key : value = column : column value
+            result[columns[i]] = r  
         return result
