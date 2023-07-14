@@ -21,25 +21,11 @@ class StoreExecuteSQLService(ExecuteSQLService):
         result = self.execute_sql(DML.SELECT, sql) #execute sql
         return result
     
-    def read_address(self, address):
-        sql = "SELECT * FROM store WHERE address LIKE ?"
-        args = (f"%{address}%",)
-        result = self.execute_sql(DML.SELECT, sql, args) #execute sql
-
-        return result
-    
-    def read_name(self, name):
-        sql = "SELECT * FROM store WHERE name LIKE ?"
-        args = (f"%{name}%",)
-        result = self.execute_sql(DML.SELECT, sql, args) #execute sql
-
-        return result
-    
-    def read_name_address(self, name, address):
-        sql = f"SELECT * FROM store WHERE name LIKE ? AND address LIKE ?"
-        args = (f"%{name}%", f"%{address}%")
-        result = self.execute_sql(DML.SELECT, sql, args) #execute sql
-
+    def read_kwargs(self, **kwargs):
+        sql = """SELECT * FROM store WHERE """
+        where_sentence, where_args = self.mk_where_condition(kwargs)
+        sql += where_sentence
+        result = self.execute_sql(DML.SELECT, sql, where_args) #execute sql
         return result
     
     def read_id(self, id):

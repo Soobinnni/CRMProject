@@ -23,6 +23,16 @@ class UserService(ExecuteSQLService) :
         result = self.execute_sql(DML.SELECT, sql) #execute sql
         return result
     
+    def read_kwargs(self, **kwargs):
+        sql = """SELECT * FROM user WHERE """
+        where_sentence, where_args = self.mk_where_condition(kwargs)
+        sql += where_sentence
+        result = self.execute_sql(DML.SELECT, sql, where_args) #execute sql
+
+        print(where_sentence, where_args)
+
+        return result
+    
     def read_name_gender(self, name, gender):
         result = None
         sql = "SELECT * FROM user WHERE name LIKE ? "

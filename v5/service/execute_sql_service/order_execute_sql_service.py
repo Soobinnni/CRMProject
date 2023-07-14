@@ -8,10 +8,11 @@ class OrderExecuteSQLService(ExecuteSQLService):
         result = self.execute_sql(DML.SELECT, sql) #execute sql
         return result
     
-    def read_order_date(self, order_date) :
-        sql = """SELECT * FROM "order" WHERE ordered_at LIKE ?"""
-        args = (f'%{order_date}%', )
-        result = self.execute_sql(DML.SELECT, sql, args) #execute sql
+    def read_kwargs(self, **kwargs):
+        sql = """SELECT * FROM "order" WHERE """
+        where_sentence, where_args = self.mk_where_condition(kwargs)
+        sql += where_sentence
+        result = self.execute_sql(DML.SELECT, sql, where_args) #execute sql
         return result
 
     def read_id(self, id):

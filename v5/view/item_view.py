@@ -17,8 +17,8 @@ def item_board_list():
     result = []
     if (not name and not unit_price) :
         result = item_service.read_all()
-    elif (name or unit_price) :
-        result = item_service.read_kwargs(name=name, unit_price=unit_price)
+    else :
+        result = item_service.read_kwargs(like_name=name, unit_price=unit_price)
 
     total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터
 

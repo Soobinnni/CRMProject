@@ -17,12 +17,8 @@ def store_board_list():
     result = []
     if (not name and not address) :
         result = store_service.read_all()
-    elif not name :
-        result = store_service.read_address(address)
-    elif not address :
-        result = store_service.read_name(name)
-    elif name and address :
-        result = store_service.read_name_address(name, address)
+    else :
+        result = store_service.read_kwargs(like_name = name, like_address = address)
 
     total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터
 

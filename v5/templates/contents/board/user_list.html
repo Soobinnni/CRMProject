@@ -5,7 +5,7 @@
     <div class="search_bar">
     <form action="/user/board/list" method="get">
         <label for="name">Name </label>
-        {% if name == "no search" %}
+        {% if not name %}
         <input type="text" id="name" name="name"/>
         {% else %}
         <input type="text" id="name" name="name" value="{{name}}" style="font-weight: 600;"/>
@@ -14,20 +14,16 @@
         <div class="space"></div>
         <label for="gender">Gender </label>
         <select name="gender" id="gender" name="gender">
-            {% if gender == "no search" %}
-            <option value="Both">Both</option>
-            <option value="Female">Female</option>
-            <option value="Male">Male</option>
-            {% elif gender == "Both" %}
-            <option value="Both" selected>Both</option>
+            {% if not gender %}
+            <option value="" selected>Both</option>
             <option value="Female">Female</option>
             <option value="Male">Male</option>
             {% elif gender == "Female" %}
-            <option value="Both">Both</option>
+            <option value="">Both</option>
             <option value="Female" selected>Female</option>
             <option value="Male">Male</option>
             {% else %}
-            <option value="Both">Both</option>
+            <option value="">Both</option>
             <option value="Female">Female</option>
             <option value="Male" selected>Male</option>
             {% endif %}

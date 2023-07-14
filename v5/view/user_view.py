@@ -11,15 +11,15 @@ user_service = UserService()
 def user_board_list():
     # parameter values
     page_num = request.args.get("page_num", type=int, default=1)
-    name = request.args.get("name", default="no search", type=str).strip()
-    gender = request.args.get("gender", default="no search", type=str)
+    name = request.args.get("name", default=" ", type=str).strip()
+    gender = request.args.get("gender", default=" ", type=str).strip()
 
     result = []
     # service
-    if( name == 'no search' and gender == 'no search' ):
+    if( not name and not gender ) :
         result = user_service.read_all()
-    elif (len(name) != 0) and (len(gender) != 0) : 
-        result = user_service.read_name_gender(name, gender)
+    else : 
+        result = user_service.read_kwargs(like_name = name, like_gender = gender) 
 
     total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터
 

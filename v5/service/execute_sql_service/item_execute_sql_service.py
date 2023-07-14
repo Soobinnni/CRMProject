@@ -23,14 +23,9 @@ class ItemExecuteSQLService(ExecuteSQLService):
 
     def read_kwargs(self, **kwargs):
         sql = "SELECT * FROM item WHERE "
-        args = ()
-        for key, value in kwargs.items() : 
-            if(value) :
-                sql += key + ' = ? '
-                args += (value, )
-        kwargs
-        args = (f'%{name}%', price)
-        result = self.execute_sql(DML.SELECT, sql, args) #execute sql
+        where_sentence, where_args = self.mk_where_condition(kwargs)
+        sql += where_sentence
+        result = self.execute_sql(DML.SELECT, sql, where_args) #execute sql
         return result
     
     def read_id(self, id):
