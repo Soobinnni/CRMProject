@@ -1,32 +1,37 @@
 {% extends "components/board/detail/layout.html" %}
-{% block title %}Order Item Detail{% endblock %}</title>
+{% block title %}Order Detail{% endblock %}</title>
 {% block board_name %}
-    Order Item
+상품 주문 정보
 {% endblock %}
 {% block buttons %}
     {# <a href="javascript:history.back()">뒤로가기</a> #}
     <button type='button' onclick="window.history.back()" style="display: inline-block;">뒤로가기</button>
 {% endblock %}
-{% block table_content %}
+{% block relative_detail_content %}
+    {% if data %}
     <table>
-        <col width=33%"></col>
-        <col width="33%"></col>
-        <col width="33%"></col>
+        <col width="28%"></col>
+        <col width="28%"></col>
+        <col width="28%"></col>
+        <col width="16%"></col>
         <tr>
-            {% for header in data.keys() %}
+            {% for header in data[0].keys() %}
             <th>{{header}}</th>
             {% endfor %}
         </tr>
+        {% for dic in data %}
         <tr>
-            {% for key in data.keys() %}   
+            {% for key, value in dic.items() %}
                 {% if key == 'order id' %}
-                    <td><a href = "{{ url_for('order.order_board_detail', id = data[key]) }}">{{data[key]}}</a></td> 
-                {% elif key == 'item id' %}
-                    <td><a href = "{{ url_for('item.item_board_detail', id = data[key]) }}">{{data[key]}}</a></td> 
+                    <td><a class="a_link" href="{{url_for('order.order_board_detail', id = value)}}">{{value}}</a></td>
+                {% elif key == 'item id'%}
+                    <td><a class="a_link" href="{{url_for('item.item_board_detail', id = value)}}">{{value}}</a></td>
                 {% else %}
-                    <td>{{data[key]}}</td>
+                    <td>{{value}}</td>
                 {% endif %}
             {% endfor %}
         </tr>
+        {% endfor %}
     </table>
+    {% endif %}
 {% endblock %}

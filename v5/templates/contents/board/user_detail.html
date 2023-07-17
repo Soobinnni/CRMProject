@@ -51,8 +51,14 @@
         </tr>
         {% for dic in user_order_data %}
         <tr>
-            {% for value in dic.values() %}
-            <td>{{value}}</td>
+            {% for key, value in dic.items() %}
+                {% if key == 'order id' %}
+                    <td><a class="a_link" href="{{url_for('order_item.order_item_board_detail', id = value)}}">{{value}}</a></td>
+                {% elif key == 'purchased location' %}
+                    <td><a class="a_link" href="{{url_for('store.store_board_detail', id = value)}}">{{value}}</a></td>
+                {% else%}
+                    <td>{{value}}</td>
+                {% endif %}
             {% endfor %}
         </tr>
         {% endfor %}

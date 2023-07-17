@@ -1,6 +1,6 @@
-from service.mk_uuid import mk_uuid
-from service.execute_sql_service.SQLBuilder import SQLBuilder
-from service.execute_sql_service.execute_sql_service import DML
+import uuid
+from db.service.execute_sql_service.SQLBuilder import SQLBuilder
+from db.service.execute_sql_service.execute_sql_service import DML
 
 import sqlite3
 
@@ -9,7 +9,7 @@ class UserSQLBuilder(SQLBuilder) :
     def create(self, user) :
         user = user #domain
 
-        id = user.id = mk_uuid() # uuid init
+        id = user.id = str(uuid.uuid4()) # uuid init
         user_tuple = tuple(user.__dict__.values()) # object property -> tuple
         
         sql = "INSERT INTO user(id, name, gender, birthdate, age, address) VALUES (?, ?, ?, ?, ?, ?)"

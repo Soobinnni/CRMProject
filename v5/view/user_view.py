@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 
 from view.paging import get_page_info
-from service.execute_sql_service.UserSQLBuilder import UserSQLBuilder
+from db.service.execute_sql_service.UserSQLBuilder import UserSQLBuilder
 from domain.user import User
 
 user_bp = Blueprint('user', __name__, url_prefix='/user')

@@ -34,7 +34,7 @@
             <tr>
                 {% for key, value in page_data.items() %}
                     {% if key == 'id' %} 
-                        <td><a class="a_link" href = "{{ url_for('order.order_board_detail', id=id) }}">{{value}}</a></td>
+                        <td><a class="a_link" href = "{{ url_for('order_item.order_item_board_detail', id=id) }}">{{value}}</a></td>
                     {% else %}
                         <td>{{value}}</td>
                     {% endif %}

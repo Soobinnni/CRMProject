@@ -1,7 +1,7 @@
 from flask import Blueprint, Flask, render_template, request
 
 from view.paging import get_page_info
-from service.execute_sql_service.OrderItemSQLBuilder import OrderItemSQLBuilder
+from db.service.execute_sql_service.OrderItemSQLBuilder import OrderItemSQLBuilder
 
 order_item_bp = Blueprint('order_item', __name__, url_prefix='/order-item')
 order_item_service = OrderItemSQLBuilder()
@@ -20,8 +20,10 @@ def order_item_board_list():
 
 @order_item_bp.route("/board/detail")
 def order_item_board_detail():
-    id = request.args.get("id", type=str)# parameter value
-    data = order_item_service.read_id('order_item', id)# service
-
+    id = request.args.get("id", type=str) # parameter value
+    data = order_item_service.read_id('"order"', id) #service
+    print(id)
+    print(data)
     response = render_template("contents/board/order_item_detail.html", data = data)
+    
     return response

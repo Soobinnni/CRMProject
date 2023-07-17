@@ -1,7 +1,7 @@
 from flask import Blueprint, Flask, render_template, request, redirect, url_for
 
 from view.paging import get_page_info
-from service.execute_sql_service.StoreSQLBuilder import StoreSQLBuilder
+from db.service.execute_sql_service.StoreSQLBuilder import StoreSQLBuilder
 from domain.store import Store
 
 store_bp = Blueprint('store', __name__, url_prefix='/store')

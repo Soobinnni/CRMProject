@@ -1,4 +1,4 @@
-from service.execute_sql_service.execute_sql_service import ExecuteSQLService, DML
+from db.service.execute_sql_service.execute_sql_service import ExecuteSQLService, DML
 
 class SQLBuilder(ExecuteSQLService):
     def read_all(self, table_name):

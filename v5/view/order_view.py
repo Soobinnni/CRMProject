@@ -1,7 +1,7 @@
 from flask import Blueprint, Flask, render_template, request
 
 from view.paging import get_page_info
-from service.execute_sql_service.OrderSQLBuilder import OrderSQLBuilder
+from db.service.execute_sql_service.OrderSQLBuilder import OrderSQLBuilder
 
 order_bp = Blueprint('order', __name__, url_prefix='/order')
 order_service = OrderSQLBuilder()

@@ -1,13 +1,12 @@
 {% extends "components/board/detail/layout.html" %}
 {% block title %}Order Detail{% endblock %}</title>
 {% block board_name %}
-    Order
+    Order <span style="font-size : 60%;font-weight: 500;">{{data['id']}}</span>
 {% endblock %}
 {% block buttons %}
     {# <a href="javascript:history.back()">뒤로가기</a> #}
     <button type='button' onclick="window.history.back()" style="display: inline-block;">뒤로가기</button>
 {% endblock %}
-{% block relative_detail_header %}{% if data %}상품 주문 정보{% endif %}{% endblock %}
 {% block relative_detail_content %}
     {% if data %}
     <table>
@@ -16,17 +15,15 @@
         <col width="28%"></col>
         <col width="16%"></col>
         <tr>
-            {% for header in data[0].keys() %}
+            {% for header in data.keys() %}
             <th>{{header}}</th>
             {% endfor %}
         </tr>
-        {% for dic in data %}
         <tr>
-            {% for value in dic.values() %}
+        {% for value in data.values() %}
             <td>{{value}}</td>
-            {% endfor %}
-        </tr>
         {% endfor %}
+        </tr>
     </table>
     {% endif %}
 {% endblock %}
