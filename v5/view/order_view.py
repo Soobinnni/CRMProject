@@ -1,10 +1,10 @@
 from flask import Blueprint, Flask, render_template, request
 
 from view.paging import get_page_info
-from service.execute_sql_service.order_execute_sql_service import OrderExecuteSQLService
+from service.execute_sql_service.OrderSQLBuilder import OrderSQLBuilder
 
 order_bp = Blueprint('order', __name__, url_prefix='/order')
-order_service = OrderExecuteSQLService()
+order_service = OrderSQLBuilder()
 
 @order_bp.route("/board/list")
 def order_board_list():
@@ -14,9 +14,9 @@ def order_board_list():
 
     result = [] 
     if not order_at :
-        result = order_service.read_all()
+        result = order_service.read_all('"order"')
     else :
-        result = order_service.read_kwargs(like_ordered_at = order_at)
+        result = order_service.read_kwargs('"order"',like_ordered_at = order_at)
 
     total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터
 
@@ -26,14 +26,8 @@ def order_board_list():
 
 @order_bp.route("/board/detail")
 def order_board_detail():
-    #log
-    print('----------------------------view-order : @order_bp.route("/order/board/detail")')
-    # parameter value
-    id = request.args.get("id", type=str)
-    print(id)
-    #service
-    data = order_service.read_id(id)
-
-    #응답
+    id = request.args.get("id", type=str) # parameter value
+    data = order_service.read_id('"order"', id) #service
     response = render_template("contents/board/order_detail.html", data = data)
+    
     return response

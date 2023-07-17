@@ -31,9 +31,13 @@
         </tr>
             {% for page_data in page_datas %}
             {% set id = page_data['id'] %}
-            <tr onclick = window.location.href="{{ url_for('order.order_board_detail', id=id) }}">
+            <tr>
                 {% for key, value in page_data.items() %}
-                    <td>{{value}}</td>
+                    {% if key == 'id' %} 
+                        <td><a class="a_link" href = "{{ url_for('order.order_board_detail', id=id) }}">{{value}}</a></td>
+                    {% else %}
+                        <td>{{value}}</td>
+                    {% endif %}
                 {% endfor %}
             </tr>
             {% endfor %}

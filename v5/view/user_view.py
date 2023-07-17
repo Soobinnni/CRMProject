@@ -1,11 +1,11 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 
 from view.paging import get_page_info
-from service.execute_sql_service.user_execute_sql_service import UserService
+from service.execute_sql_service.UserSQLBuilder import UserSQLBuilder
 from domain.user import User
 
 user_bp = Blueprint('user', __name__, url_prefix='/user')
-user_service = UserService()
+user_service = UserSQLBuilder()
 # --------------------------------------------------------board-----------------------------------------------------------------
 @user_bp.route("/board/list")
 def user_board_list():
@@ -17,9 +17,9 @@ def user_board_list():
     result = []
     # service
     if( not name and not gender ) :
-        result = user_service.read_all()
+        result = user_service.read_all("user")
     else : 
-        result = user_service.read_kwargs(like_name = name, like_gender = gender) 
+        result = user_service.read_kwargs("user", like_name = name, like_gender = gender) 
 
     total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터
 
@@ -34,7 +34,7 @@ def user_board_detail():
     regist_status = request.args.get("regist_status", type=bool, default=False)
 
     #service   
-    user_data = user_service.read_id(id) # 1. user detail
+    user_data = user_service.read_id("user", id) # 1. user detail
     user_order_data = user_service.read_order(id) # 2. user order
 
     response = render_template("contents/board/user_detail.html", user_data = user_data, user_order_data = user_order_data, regist_status = regist_status )
@@ -42,7 +42,6 @@ def user_board_detail():
 # --------------------------------------------------------register-----------------------------------------------------------------
 @user_bp.route("/register", methods = ['GET', 'POST'])
 def user_register():
-
     response = None
     if request.method == 'GET' :
         response = render_template("contents/register/user_register.html")
