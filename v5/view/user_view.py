@@ -36,8 +36,10 @@ def user_board_detail():
     #service   
     user_data = user_service.read_id("user", id) # 1. user detail
     user_order_data = user_service.read_order(id) # 2. user order
+    user_visit_store_top_five_data = user_service.read_visit_store_top_five(id) # 3. user visit store top five
+    user_purchase_item_top_five_data = user_service.read_purchase_item_top_five(id) # 4. user purchase item top five
 
-    response = render_template("contents/board/user_detail.html", user_data = user_data, user_order_data = user_order_data, regist_status = regist_status )
+    response = render_template("contents/board/user_detail.html", user_data = user_data, user_order_data = user_order_data, user_visit_store_top_five_data = user_visit_store_top_five_data, user_purchase_item_top_five_data = user_purchase_item_top_five_data, regist_status = regist_status )
     return response
 # --------------------------------------------------------register-----------------------------------------------------------------
 @user_bp.route("/register", methods = ['GET', 'POST'])

@@ -31,3 +31,34 @@ class UserSQLBuilder(SQLBuilder) :
         args = (id,)
         result = self.execute_sql(DML.SELECT, sql, args) #execute sql
         return result
+    
+    def read_visit_store_top_five(self, id) :
+        sql = """
+            SELECT s.name AS "store name", count(*) AS "visit num"
+            FROM user u
+            JOIN "order" o ON u.id = o.user_id
+            JOIN store s ON o.store_id = s.id
+            WHERE u.id = ?
+            GROUP BY s.name
+            ORDER BY "visit num" DESC
+            LIMIT 5
+        """
+        args = (id,)
+        result = self.execute_sql(DML.SELECT, sql, args) #execute sql
+        return result
+    
+    def read_purchase_item_top_five(self, id) :
+        sql = """
+            SELECT i.name AS "item name", count(*) AS "purchase num"
+            FROM user u
+            JOIN "order" o ON u.id = o.user_id
+            JOIN order_item oi ON o.id = oi.order_id
+            JOIN item i ON oi.item_id = i.id
+            WHERE u.id = ?
+            GROUP BY i.name
+            ORDER BY "purchase num" DESC
+            LIMIT 5
+        """
+        args = (id,)
+        result = self.execute_sql(DML.SELECT, sql, args) #execute sql
+        return result

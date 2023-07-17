@@ -64,4 +64,42 @@
         {% endfor %}
     </table>
     {% endif %}
+    {% if user_visit_store_top_five_data %}
+    <hr style="margin-top:80px;height:3px;background-color: var(--bs-gray-700);">
+    <h3>자주 방문한 매장</h3>
+    <table>
+        <tr>
+            <th width="25%">순위</th>
+            <th width="50%">방문 매장</th>
+            <th width="25%">방문 횟수</th>
+        </tr>
+        {% for uvstf in user_visit_store_top_five_data %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            {% for u in uvstf.values() %}
+                <td>{{u}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    {% if user_purchase_item_top_five_data %}
+    <hr style="margin-top:80px;height:3px;background-color: var(--bs-gray-700);">
+    <h3>자주 주문한 상품명</h3>
+    <table>
+        <tr>
+            <th width="25%">순위</th>
+            <th width="50%">상품명</th>
+            <th width="25%">구매 횟수</th>
+        </tr>
+        {% for upitf in user_purchase_item_top_five_data %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            {% for ui in upitf.values() %}
+                <td>{{ui}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
 {% endblock %}
