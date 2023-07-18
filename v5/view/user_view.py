@@ -26,7 +26,6 @@ def user_board_list():
     response = render_template("contents/board/user_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num, name=name, gender=gender)
     return response
 
-
 @user_bp.route("/board/detail")
 def user_board_detail():
     # parameter value

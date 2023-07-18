@@ -22,6 +22,7 @@ class SQLBuilder(ExecuteSQLService):
         where_sentence = ""
         where_args = ()
         index = 0
+        
         for key, value in condition_dict.items() : 
             if(value) :
                 if index > 0 :
