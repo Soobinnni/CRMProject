@@ -33,9 +33,24 @@ def item_board_detail():
     regist_status = request.args.get("regist_status", type=bool, default=False)
 
     #service
-    data = item_service.read_id("item", id)
+    data = item_service.read_id("item", id) # 1. item detail 
+    monthly_sales = item_service.read_monthly_sales(id) # item monthly sales
 
-    response = render_template("contents/board/item_detail.html", data = data, regist_status = regist_status)
+    monthly_sales_label = []
+    monthly_sales_sale_value = []
+    monthly_sales_count_value = []
+    for monthly_sale in monthly_sales :
+        for key, value in monthly_sale.items() :
+            if key == 'Month' : 
+                monthly_sales_label.append(value)
+            elif key == 'Total Revenue' :
+                monthly_sales_sale_value.append(value)
+            elif key == 'Item Count' : 
+                monthly_sales_count_value.append(value)
+    print(monthly_sales_count_value)
+
+
+    response = render_template("contents/board/item_detail.html", data = data, monthly_sales = monthly_sales, monthly_sales_label = monthly_sales_label, monthly_sales_sale_value = monthly_sales_sale_value, monthly_sales_count_value = monthly_sales_count_value, regist_status = regist_status)
     return response
 
 # --------------------------------------------------------register-----------------------------------------------------------------

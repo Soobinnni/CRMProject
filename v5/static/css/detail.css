@@ -68,7 +68,7 @@ div.back_btn {
     width: 250px;
     margin: 1% 0 0 2px;
 }
-div.back_btn button {
+div.back_btn button, .relative_detail_content button {
     cursor: pointer;
     width: 120px;
     height: 100px;
@@ -90,4 +90,9 @@ div.back_btn button:hover {
 }
 .relative_detail_content {
     margin : 0 0 50px;
+}
+.item_charts {
+    display: flex;
+    justify-content: center; /* 가로 정렬 방식 설정 */
+    align-items: center; /* 세로 정렬 방식 설정 */
 }

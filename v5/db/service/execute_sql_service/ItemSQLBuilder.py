@@ -16,3 +16,16 @@ class ItemSQLBuilder(SQLBuilder):
         return id
     
 # =========================================================READ=========================================================
+    def read_monthly_sales(self, id) :
+        sql = """
+            SELECT SUBSTR(o.ordered_at, 1, 7) AS "Month", SUM(i.unit_price) AS "Total Revenue", COUNT(*) AS "Item Count"
+            FROM item i
+            JOIN order_item oi ON i.id = oi.item_id 
+            JOIN "order" o ON oi.order_id = o.id
+            WHERE i.id = ?
+            GROUP BY "Month"
+            ORDER BY "Month"
+        """
+        args = (id,)
+        result = self.execute_sql(DML.SELECT, sql, args) #execute sql
+        return result
