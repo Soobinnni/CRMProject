@@ -31,10 +31,17 @@ def store_board_detail():
     # parameter value
     id = request.args.get("id", type=str)
     regist_status = request.args.get("regist_status", type=bool, default=False)
+    date = request.args.get("date", type=str)
 
-    data = store_service.read_id("store", id) #service
+    data = store_service.read_id("store", id) # 1. store detail
+    sale_datas = [] # 2. store monthly sales
+    if date :
+        sale_datas = store_service.read_sales(id, "daily")
+    else :    
+        sale_datas = store_service.read_sales(id, "monthly") 
+    regular_customers = store_service.read_regular_customer(id) # 3. store regular customer
 
-    response = render_template("contents/board/store_detail.html", data = data, regist_status = regist_status)
+    response = render_template("contents/board/store_detail.html", data = data, sale_datas = sale_datas, regular_customers = regular_customers, regist_status = regist_status)
     return response
 
 # --------------------------------------------------------register-----------------------------------------------------------------

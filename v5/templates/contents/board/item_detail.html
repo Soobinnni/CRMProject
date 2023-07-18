@@ -3,7 +3,7 @@
 {% block board_name %}
     {% if not regist_status %}
         {# board_list에서 넘어온 상세 페이지일 경우 #}
-        Item <span style="font-size : 80%;font-weight: 500;">{{data['name']}}</span>
+        {{data['name']}}
     {% else %}
         {# 등록 후 상세 페이지일 경우 #}
         Item {{data['name']}} 등록 완료!

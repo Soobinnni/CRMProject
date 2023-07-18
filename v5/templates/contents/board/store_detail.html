@@ -3,7 +3,7 @@
 {% block board_name %}
     {% if not regist_status %}
         {# board_list에서 넘어온 상세 페이지일 경우 #}
-        Store {{data['name']}}
+         {{data['name']}}
     {% else %}
         {# 등록 후 상세 페이지일 경우 #}
         Store {{data['name']}} 등록 완료!
@@ -33,4 +33,52 @@
             {% endfor %}
         </tr>
     </table>
+    {% endblock %}
+{% block relative_detail_content %}
+{% if sale_datas %}
+<hr style="margin-top:80px;background-color: var(--bs-gray-700);">
+<h3>월간 매출액</h3>
+    <table>
+        <col width="33%"></col>
+        <col width="33%"></col>
+        <col width="33%"></col>
+        <tr>
+            {% for header in sale_datas[0].keys() %}
+            <th>{{header}}</th>
+            {% endfor %}
+        </tr>
+        {% for dic in sale_datas %}
+        <tr>
+            {% for key, value in dic.items() %}
+                {% if key == 'month' %}
+                    <td><a class="a_link" href="{{url_for('store.store_board_detail', date = value, id = data['id'])}}">{{value}}</a></td>
+                {% else%}
+                    <td>{{value}}</td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+{% if regular_customers %}
+    <h3>단골 손님</h3>
+    <table>
+        <tr>
+            <th width = "33%">id</th>
+            <th width="33%">이름</th>
+            <th width="33%">방문 횟수</th>
+        </tr>
+        {% for rc in regular_customers %}
+        <tr>
+            {% for key, value in rc.items() %}
+                {% if key == 'user id' %}
+                    <td><a class="a_link" href = "{{ url_for("user.user_board_detail", id = value )}}">{{value}}</a></td>
+                {% else %}
+                    <td>{{value}}</td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+{% endif %}
 {% endblock %}

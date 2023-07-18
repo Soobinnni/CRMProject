@@ -8,6 +8,12 @@ function hide(hide_content_class_name, show_content_class_name, display_type, hi
 }
 
 hide("item_charts", "monthly_revenu_table", "table", "graph_hide_btn", "table_hide_btn");
+function monthly_revenu_graph_hide() {
+    hide("item_charts", "monthly_revenu_table", "table", "graph_hide_btn", "table_hide_btn");
+}
+function monthly_revenu_table_hide() {
+    hide("monthly_revenu_table", "item_charts", "flex", "table_hide_btn", "graph_hide_btn");
+}
 
 const revenue_chart_ctx = document.getElementById("revenue_chart");
 const count_chart_ctx = document.getElementById("count_chart");
@@ -97,10 +103,3 @@ function count_chart(){
         },
     });
 }    
-
-function monthly_revenu_graph_hide() {
-    hide("item_charts", "monthly_revenu_table", "table", "graph_hide_btn", "table_hide_btn");
-}
-function monthly_revenu_table_hide() {
-    hide("monthly_revenu_table", "item_charts", "flex", "table_hide_btn", "graph_hide_btn");
-}
