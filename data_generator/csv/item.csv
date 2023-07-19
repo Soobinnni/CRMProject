@@ -1,51 +1,16 @@
 Id,Name,Type,UnitPrice
-97bb0a52-d03f-4b0e-97d2-f242cbbb348d,Pineapple Juice,Juice,7600
-6698e48f-2b78-4d39-9942-573836966362,Cappuccino Cake,Cake,3300
-c68b0296-7ceb-4487-adc0-4c7673784dd4,Moca Cake,Cake,3500
-f5e1de1e-064c-4277-8e94-39cd3aa1e86f,Moca Juice,Juice,3100
-7deedea3-79a0-4ca2-940b-4203ae790e2c,Red Velvet Coffee,Coffee,4000
-fb49c54a-397c-4a4e-981c-7f66e434592a,Mango Juice,Juice,4000
-468f41b0-9ffa-4f7c-842d-83767c5b76d4,Strawberry Juice,Juice,6200
-abd56601-e2bc-4a85-b3b0-b8e05afafd96,Espresso Coffee,Coffee,1300
-5bdce360-892f-4241-8629-1117b2f43594,Vanilla Cake,Cake,5700
-4b6e84b1-2941-4aee-bfd7-16e53258b0cb,Pineapple Cake,Cake,6300
-c53ea190-3a04-4739-9dd4-4c8fc535cb8b,Espresso Cake,Cake,7900
-a2767bb3-4ac0-420d-bf18-630bca40663d,Mango Coffee,Coffee,1600
-3ba9ea7a-cd15-4d74-8ca1-311dcc1baf69,Americano Coffee,Coffee,9100
-21465e1c-1042-4965-8833-bb3e44b3b2dc,Red Velvet Coffee,Coffee,7900
-a49c5b5f-2584-4e82-a1ee-0595f5a22728,Mango Coffee,Coffee,1700
-bf385190-6d8b-4886-83cf-71b0a0ba07ac,Watermelon Cake,Cake,6500
-ce7ba1c5-8a57-419b-bddd-d80f53c6ec1c,Cappuccino Coffee,Coffee,5700
-c53dd35b-776b-4301-ba35-22581abdaf48,Vanilla Juice,Juice,7600
-88b6f647-c49f-46d9-b150-17dbde6b7883,Espresso Cake,Cake,9200
-1245d51c-4ef7-4db6-9177-be66c850d88c,Moca Cake,Cake,4600
-f5e9b458-b0d2-487b-b952-92069ed687b8,Americano Juice,Juice,2000
-55daf6e5-f211-44e5-a198-2c25b8673b70,Americano Cake,Cake,5300
-5e52566d-3116-4b94-bda0-e483de12663c,Cappuccino Juice,Juice,4100
-10b9643a-ba7b-4f28-ab45-14e01eeee9dc,Red Velvet Cake,Cake,2900
-7947fcff-e298-4e6f-93bd-6c73c4a71909,Cappuccino Juice,Juice,5000
-a98b93c3-19b6-4c05-8f39-d60daa793efe,Moca Coffee,Coffee,3900
-336e0f35-07d6-4403-ac40-33cc82ef62c9,Moca Cake,Cake,1100
-341cae68-2955-4882-a496-ee29fd8409af,Cappuccino Coffee,Coffee,3800
-181994a4-4f4f-439b-8b40-ef73227b1949,Vanilla Juice,Juice,9100
-ef70b5e1-50d2-499c-952c-7b19c847d510,Americano Cake,Cake,6200
-2fe4e87f-abdc-439b-b476-641b38dc83a0,Mango Coffee,Coffee,5200
-a210f691-a94a-4ca4-ae54-9dd09e6a12e3,Strawberry Cake,Cake,9500
-ca0a7eb2-ba14-4b1c-a76a-7f6e60578c71,Espresso Coffee,Coffee,5200
-22df0404-4f6c-45de-894a-cd967d9736d2,Vanilla Cake,Cake,4100
-7792a38f-64c6-441b-b9bc-4f85cafa54f7,Watermelon Coffee,Coffee,7700
-39869476-11b2-4533-a83c-000c125d4bbd,Moca Coffee,Coffee,9800
-e66a958d-3f05-4bef-aff3-969c501f9e4b,Red Velvet Coffee,Coffee,7700
-d9bdbad2-96cb-47fd-89e7-0ab6d17241f6,Vanilla Cake,Cake,6200
-334ceb57-f41f-4d4a-a215-1d9cabbef5fe,Pineapple Coffee,Coffee,9700
-67c4028a-6c93-4064-8fa1-4111d4ea3540,Americano Coffee,Coffee,2600
-d7857fc0-1bf8-4bb1-ac87-bd1f2af58cfc,Americano Cake,Cake,2200
-65ae0dff-971a-4769-938e-f2f65e3cd1de,Pineapple Coffee,Coffee,6500
-b462bedc-5c38-451b-9acb-62a3cefc2379,Mango Coffee,Coffee,6100
-cb907018-53ac-4cde-b661-5b24bdcdb45b,Pineapple Coffee,Coffee,5900
-b06e21ac-074a-4c4b-8b5e-93d1bde1ab49,Pineapple Coffee,Coffee,5900
-c9aa1b19-6a6e-4843-96e9-2245e178c2a4,Pineapple Juice,Juice,2000
-c38b0640-e1f8-44ed-9e50-dc37ff2933ac,Espresso Cake,Cake,3100
-2b18e07c-d01a-43f8-82e3-89570f9e0725,Vanilla Juice,Juice,8400
-ab0a08db-6ccb-47f4-b98a-ec7c8ed1ca4e,Strawberry Juice,Juice,5000
-d4032694-bb86-4d8d-8f12-142b3b3538d3,Vanilla Cake,Cake,5700
+d6ba5511-7b4b-42b8-b8af-252b974d8d8e,Cappuccino Coffee,Coffee,5900
+66e82340-d991-4d23-a6c9-8dbc06bff671,Moca Coffee,Coffee,4500
+1e71323b-27d5-4517-af4f-a465dc1c389e,Cappuccino Cake,Cake,4300
+6e5b73f1-b5ac-4221-a7ce-835f5fc4c85c,Pineapple Juice,Juice,1700
+9f99d90f-e3be-47c7-93bb-027289beba39,Cappuccino Juice,Juice,7700
+ab798c97-fad5-4905-b031-a2db3282225d,Pineapple Juice,Juice,5000
+77a6db7f-055a-4007-a2e8-6dcd3126aa67,Red Velvet Cake,Cake,1300
+19e1031c-0307-4eb2-a853-a9124ebb0ddc,Watermelon Cake,Cake,8700
+76527ec7-0b6b-4bbd-817b-24564cf790a9,Americano Cake,Cake,2700
+7fae4882-5ccd-468c-bc53-7e47932e71e0,Mango Juice,Juice,2700
+30068569-72be-4e03-a1ba-84f384e0f8ed,Moca Coffee,Coffee,1000
+0735ba16-aff5-40a8-82e0-ac3da762fabf,Espresso Coffee,Coffee,3300
+a89ec1d7-d134-45b3-ad31-afefca52a0cf,Espresso Cake,Cake,4800
+f113ba9a-cbed-464e-9220-71ee3f5e8b22,Red Velvet Coffee,Coffee,2000
+82a5f2cb-254a-4ce6-8a1e-d559f9a5445d,Cappuccino Coffee,Coffee,6200

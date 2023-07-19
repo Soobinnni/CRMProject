@@ -6,6 +6,7 @@ from view.order_view import order_bp
 from view.order_item_view import order_item_bp
 from view.store_view import store_bp
 from view.common_view import common_bp
+from view.login_view import login_bp
 
 app = Flask(__name__)
 # ---------------------------------------------views---------------------------------------------------------------
@@ -15,6 +16,7 @@ app.register_blueprint(order_bp)
 app.register_blueprint(order_item_bp)
 app.register_blueprint(store_bp)
 app.register_blueprint(common_bp)   
+app.register_blueprint(login_bp)   
 # -----------------------------------------------Main---------------------------------------------------------------------
 if __name__ == "__main__":
     # app.run(port=5003, host = "0.0.0.0")
