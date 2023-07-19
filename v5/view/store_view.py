@@ -13,16 +13,19 @@ def store_board_list():
     page_num = request.args.get("page_num", type=int, default=1)
     name = request.args.get("name", type=str, default=" ").strip()
     address = request.args.get("address", type=str, default=" ").strip()
-    
+
+    board_num = 10
     result = []
+    total_page = 0
+    
     if (not name and not address) :
-        result = store_service.read_all("store")
+        result, total_page = store_service.read_all("store", board_num, ((page_num-1)*board_num))
     else :
-        result = store_service.read_kwargs("store", like_name = name, like_address = address)
+        result, total_page = store_service.read_kwargs("store", board_num, ((page_num-1)*board_num), like_name = name, like_address = address)
 
-    total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터
+    page_list = get_page_info(page_num, 5, total_page)
 
-    response = render_template("contents/board/store_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num, name = name, address = address)
+    response = render_template("contents/board/store_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=result, page_num=page_num, name = name, address = address)
     return response
 
 

@@ -10,11 +10,14 @@ order_item_service = OrderItemSQLBuilder()
 def order_item_board_list():
     page_num = request.args.get("page_num", type=int, default=1) # parameter values
 
+    board_num = 10
     result = []
-    result = order_item_service.read_all('order_item')   
-    total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터
+    total_page = 0
+    
+    result, total_page = order_item_service.read_all('order_item', board_num, ((page_num-1)*board_num))   
+    page_list = get_page_info(page_num, 5, total_page)
 
-    response = render_template("contents/board/order_item_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num)
+    response = render_template("contents/board/order_item_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=result, page_num=page_num)
     return response
 
 

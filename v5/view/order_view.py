@@ -11,16 +11,19 @@ def order_board_list():
     # parameter values
     page_num = request.args.get("page_num", type=int, default=1)
     order_at = request.args.get("order_at", type=str, default=" ").strip()
+    
+    board_num = 10
+    result = []
+    total_page = 0
 
-    result = [] 
     if not order_at :
-        result = order_service.read_all('"order"')
+        result, total_page = order_service.read_all('"order"', board_num, ((page_num-1)*board_num))
     else :
-        result = order_service.read_kwargs('"order"',like_ordered_at = order_at)
+        result, total_page = order_service.read_kwargs('"order"', board_num, ((page_num-1)*board_num), like_ordered_at = order_at)
 
-    total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터
+    page_list = get_page_info(page_num, 5, total_page)
 
-    response = render_template("contents/board/order_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num, order_at = order_at)
+    response = render_template("contents/board/order_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=result, page_num=page_num, order_at = order_at)
     return response
 
 

@@ -4,10 +4,18 @@ from db.service.execute_sql_service.SQLBuilder import SQLBuilder
 class OrderItemSQLBuilder(SQLBuilder):
 # =========================================================CREATE=========================================================
 # =========================================================READ=========================================================
-    def read_all(self, table_name):
-        sql = f"""SELECT id, order_id AS "order id", item_id AS "item id" FROM {table_name} """
-        result = self.execute_sql(DML.SELECT, sql) #execute sql
-        return result
+    def read_all(self, table_name, limit_num, offset_num):
+        select = "select "
+        from_sentence = f" FROM {table_name}"
+        lo_sentence = f" LIMIT {limit_num} OFFSET {offset_num}"
+
+        sql = select + '''id, order_id AS "order id", item_id AS "item id"''' + from_sentence + lo_sentence
+        count_sql = select + 'count(*) AS "count"' + from_sentence
+
+        result = self.execute_sql(DML.SELECT, sql) # list[dic, ..]
+        count_result = int(self.execute_sql(DML.SELECTONE, count_sql)['count']) # integer
+        
+        return result, count_result
     
     def read_id(self, table_name, id):
         sql = f"""

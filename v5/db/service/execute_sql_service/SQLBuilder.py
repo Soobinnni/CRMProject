@@ -1,17 +1,35 @@
 from db.service.execute_sql_service.execute_sql_service import ExecuteSQLService, DML
 
 class SQLBuilder(ExecuteSQLService):
-    def read_all(self, table_name):
-        sql = f"SELECT * FROM {table_name}"
-        result = self.execute_sql(DML.SELECT, sql) #execute sql
-        return result
+    def read_all(self, table_name, limit_num, offset_num):
+        select = "select "
+        from_sentence = f" FROM {table_name}"
+        lo_sentence = f" LIMIT {limit_num} OFFSET {offset_num}"
 
-    def read_kwargs(self, table_name, **kwargs):
+        sql = select + "*" + from_sentence + lo_sentence
+        count_sql = select + 'count(*) AS "count"' + from_sentence
+
+        result = self.execute_sql(DML.SELECT, sql) # list[dic, ..]
+        count_result = int(self.execute_sql(DML.SELECTONE, count_sql)['count']) # integer
+
+        return result, count_result
+
+    def read_kwargs(self, table_name, limit_num, offset_num, **kwargs):
+        select = "select "
+        from_sentence = f" FROM {table_name}"
+        lo_sentence = f" LIMIT {limit_num} OFFSET {offset_num}"
         where_sentence, where_args = self.mk_where_condition(kwargs)
-        sql = f"SELECT * FROM {table_name} WHERE {where_sentence}"
-        result = self.execute_sql(DML.SELECT, sql, where_args) #execute sql
-        return result
-    
+
+        sql = select + "*" + from_sentence + where_sentence + lo_sentence
+        count_sql = select + 'count(*) AS "count"' + from_sentence + where_sentence
+        print(sql, count_sql)
+
+        result = self.execute_sql(DML.SELECT, sql, where_args) # list[dic, ..]
+        count_result = int(self.execute_sql(DML.SELECTONE, count_sql, where_args)['count']) # integer
+        print(result, count_result)
+        
+        return result, count_result
+
     def read_id(self, table_name, id):
         sql = f"SELECT * FROM {table_name} WHERE id = ?"
         args = (id,)
@@ -19,10 +37,10 @@ class SQLBuilder(ExecuteSQLService):
         return result
     
     def mk_where_condition(self, condition_dict) :
-        where_sentence = ""
+        where_sentence = " WHERE"
         where_args = ()
         index = 0
-        
+
         for key, value in condition_dict.items() : 
             if(value) :
                 if index > 0 :

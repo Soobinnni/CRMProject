@@ -14,16 +14,19 @@ def user_board_list():
     name = request.args.get("name", default=" ", type=str).strip()
     gender = request.args.get("gender", default=" ", type=str).strip()
 
+    board_num = 10
     result = []
+    total_page = 0
+
     # service
     if( not name and not gender ) :
-        result = user_service.read_all("user")
+        result, total_page = user_service.read_all("user", board_num, ((page_num-1)*board_num))
     else : 
-        result = user_service.read_kwargs("user", like_name = name, like_gender = gender) 
+        result, total_page = user_service.read_kwargs("user", board_num, ((page_num-1)*board_num), like_name = name, like_gender = gender) 
 
-    total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터
+    page_list = get_page_info(page_num, 5, total_page)
 
-    response = render_template("contents/board/user_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num, name=name, gender=gender)
+    response = render_template("contents/board/user_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=result, page_num=page_num, name=name, gender=gender)
     return response
 
 @user_bp.route("/board/detail")

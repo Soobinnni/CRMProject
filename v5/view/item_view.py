@@ -13,16 +13,19 @@ def item_board_list():
     page_num = request.args.get("page_num", type=int, default=1)
     name = request.args.get("name", type=str, default=" ").strip()
     unit_price = request.args.get("unit_price", type=int)
-    
+
+    board_num = 10
     result = []
+    total_page = 0
+
     if (not name and not unit_price) :
-        result = item_service.read_all("item")
+        result, total_page = item_service.read_all("item", board_num, ((page_num-1)*board_num))
     else :
-        result = item_service.read_kwargs("item", like_name=name, unit_price=unit_price)
+        result, total_page = item_service.read_kwargs("item", board_num, ((page_num-1)*board_num), like_name=name, unit_price=unit_price)
 
-    total_page, page_list, page_datas = get_page_info(page_num, 10, 3, result) # 현재 페이지 번호, 노출 게시물 개수, 노출 페이지 간격, 게시물 데이터
+    page_list = get_page_info(page_num, 5, total_page)
 
-    response = render_template("contents/board/item_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=page_datas, page_num=page_num, name=name, unit_price = unit_price)
+    response = render_template("contents/board/item_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=result, page_num=page_num, name=name, unit_price = unit_price)
     return response
 
 
