@@ -25,7 +25,7 @@ def store_board_list():
 
     page_list = get_page_info(page_num, 5, total_page)
 
-    response = render_template("contents/board/store_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=result, page_num=page_num, name = name, address = address)
+    response = render_template("contents/store/list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=result, page_num=page_num, name = name, address = address)
     return response
 
 
@@ -44,7 +44,7 @@ def store_board_detail():
         sale_datas = store_service.read_sales(id, "monthly") 
     regular_customers = store_service.read_regular_customer(id) # 3. store regular customer
 
-    response = render_template("contents/board/store_detail.html", data = data, sale_datas = sale_datas, regular_customers = regular_customers, regist_status = regist_status)
+    response = render_template("contents/store/detail.html", data = data, sale_datas = sale_datas, regular_customers = regular_customers, regist_status = regist_status)
     return response
 
 # --------------------------------------------------------register-----------------------------------------------------------------
@@ -52,7 +52,7 @@ def store_board_detail():
 def store_register():
     response = None
     if request.method == 'GET' :
-        response = render_template("contents/register/store_register.html")
+        response = render_template("contents/store/register.html")
 
     elif request.method == 'POST' :
         # form value

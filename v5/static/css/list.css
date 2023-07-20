@@ -1,32 +1,5 @@
-
-nav.nav ul{ 
-    margin : 0 auto;
-    display: flex;
-    justify-content: flex-start;
-    padding: 1.5% 10%;
-}
-.border {
-    border-bottom: 3px solid var(--bs-warning);
-}
-nav.nav ul li {
-    margin-right : 5%;
-}
-nav.nav {
-    background-color: var(--bs-dark);
-    color : var(--bs-white);
-    font-weight : 800;       
-    cursor: pointer;
-}
-nav.nav li:hover {
-    color : var(--bs-gray-400)
-}
 div.search_bar {
     margin-bottom : 2%;
-}
-main#main {
-    width: 80%;
-    margin : 0 auto;
-    min-height: 500px;
 }
 .board_name {
     font-weight: 800;letter-spacing: -1px;
@@ -143,27 +116,6 @@ main#main {
     margin : 0 auto;
     min-height: 500px;
 }
-.board_name {
-    font-weight: 800;letter-spacing: -1px;
-}
-.detail_content table {
-    width:100%;
-    margin-top : 15px;
-    border-collapse : collapse;
-}
-.detail_content table th {
-    background-color: var(--bs-yellow);
-    padding : 5px;
-}
-.detail_content table td {
-    background-color: var(--bs-white);
-    padding : 13px;
-    text-align: center;
-    border-bottom: 1px solid var(--bs-gray-300);
-}
-.detail_content table td a:hover{
-        color : var(--bs-orange)
-}   
 .board_paging {
     width: 500px;
     margin : 10px auto 20px;
@@ -178,24 +130,4 @@ main#main {
 
 .board_paging li {
     list-style-type: none;
-}
-div.back_btn {
-    width: 250px;
-    margin: 1% 0 0 2px;
-}
-div.back_btn button {
-    cursor: pointer;
-    width: 120px;
-    height: 100px;
-    background-color: var(--bs-orange);
-    color: var(--bs-white);
-    text-align: center;
-    height: 20px;
-    font-weight: 600;
-    border: 1px solid var(--bs-gray-600);
-}
-
-div.back_btn button:hover {
-    background-color: var(--bs-white);
-    color: var(--bs-orange);
 }

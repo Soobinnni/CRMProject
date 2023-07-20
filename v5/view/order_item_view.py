@@ -17,7 +17,7 @@ def order_item_board_list():
     result, total_page = order_item_service.read_all('order_item', board_num, ((page_num-1)*board_num))   
     page_list = get_page_info(page_num, 5, total_page)
 
-    response = render_template("contents/board/order_item_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=result, page_num=page_num)
+    response = render_template("contents/order_item/list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=result, page_num=page_num)
     return response
 
 
@@ -27,6 +27,6 @@ def order_item_board_detail():
     data = order_item_service.read_id('"order"', id) #service
     print(id)
     print(data)
-    response = render_template("contents/board/order_item_detail.html", data = data)
+    response = render_template("contents/order_item/detail.html", data = data)
     
     return response

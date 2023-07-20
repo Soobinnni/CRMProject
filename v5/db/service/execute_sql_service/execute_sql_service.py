@@ -1,6 +1,7 @@
 import sqlite3
 from enum import Enum
 
+DATABASE = 'db/crm.db'
 class DML(Enum) :
     SELECT = "SELECT"
     SELECTONE = "SELECTONE"
@@ -10,7 +11,7 @@ class DML(Enum) :
     
 class ExecuteSQLService:
     def get_conn_cursor(self) :
-        conn = sqlite3.connect("db/crm.db")
+        conn = sqlite3.connect(DATABASE)
         conn.row_factory = sqlite3.Row  
         cursor = conn.cursor()
 

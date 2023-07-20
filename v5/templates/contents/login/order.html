@@ -1,0 +1,11 @@
+<!DOCTYPE html5>
+<html>
+    <head>
+        <title>회원 주문하기</title>
+    </head>
+    <body>
+        <h1>주문 유형을 고르기</h1>
+        <button type="button" onclick="{{url_for('common.order')}}">비회원 주문하기</button>
+        <button type="button" onclick="{{url_for('user.order')}}">회원 주문하기</button>
+    </body>
+</html>

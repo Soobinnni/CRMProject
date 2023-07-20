@@ -1,12 +1,30 @@
 from datetime import datetime
 class User() :
     def __init__(self, name, gender, birthdate, address) :
+        self.login_id = ""
+        self.login_pwd = ""
         self.id = ""
         self.name = name
         self.gender = gender
         self.birthdate = birthdate
         self.age = self.cal_age(birthdate)
         self.address = address
+
+    @property
+    def login_id(self):
+        return self.__login_id
+
+    @login_id.setter
+    def login_id(self, login_id):
+        self.__login_id = login_id
+
+    @property
+    def login_pwd(self):
+        return self.__login_pwd
+
+    @login_pwd.setter
+    def login_pwd(self, login_pwd):
+        self.__login_pwd = login_pwd
 
     @property
     def id(self):

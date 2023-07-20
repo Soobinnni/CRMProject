@@ -23,7 +23,7 @@ def order_board_list():
 
     page_list = get_page_info(page_num, 5, total_page)
 
-    response = render_template("contents/board/order_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=result, page_num=page_num, order_at = order_at)
+    response = render_template("contents/order/list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=result, page_num=page_num, order_at = order_at)
     return response
 
 
@@ -31,6 +31,6 @@ def order_board_list():
 def order_board_detail():
     id = request.args.get("id", type=str) # parameter value
     data = order_service.read_id('"order"', id) #service
-    response = render_template("contents/board/order_detail.html", data = data)
+    response = render_template("contents/order/detail.html", data = data)
     
     return response

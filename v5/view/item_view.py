@@ -25,7 +25,7 @@ def item_board_list():
 
     page_list = get_page_info(page_num, 5, total_page)
 
-    response = render_template("contents/board/item_list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=result, page_num=page_num, name=name, unit_price = unit_price)
+    response = render_template("contents/item/list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=result, page_num=page_num, name=name, unit_price = unit_price)
     return response
 
 
@@ -53,7 +53,7 @@ def item_board_detail():
     print(monthly_sales_count_value)
 
 
-    response = render_template("contents/board/item_detail.html", data = data, monthly_sales = monthly_sales, monthly_sales_label = monthly_sales_label, monthly_sales_sale_value = monthly_sales_sale_value, monthly_sales_count_value = monthly_sales_count_value, regist_status = regist_status)
+    response = render_template("contents/item/detail.html", data = data, monthly_sales = monthly_sales, monthly_sales_label = monthly_sales_label, monthly_sales_sale_value = monthly_sales_sale_value, monthly_sales_count_value = monthly_sales_count_value, regist_status = regist_status)
     return response
 
 # --------------------------------------------------------register-----------------------------------------------------------------
@@ -61,7 +61,7 @@ def item_board_detail():
 def item_register():
     response = None
     if request.method == 'GET' :
-        response = render_template("contents/register/item_register.html")
+        response = render_template("contents/item/register.html")
 
     elif request.method == 'POST' :
         # form value

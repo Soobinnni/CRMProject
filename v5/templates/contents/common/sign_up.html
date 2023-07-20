@@ -1,0 +1,60 @@
+{% extends 'components/register/layout.html' %}
+{% block title %}User Register{% endblock %}
+{% set header_str = "User Register" %}
+{% set url = "{{url_for('user.user_register')}}" %}
+{% block content %}
+    {% block register_content %}
+        <div class="user_register_content">
+            <form action="{{ url_for('common.sign_up') }}" method="post">
+                <table>
+                    <!--login_id-->
+                    <tr>
+                        <td><label for="login_id">ID </label></td>
+                        <td><input type = "text" name = "login_id" placeholder="아이디를 입력하세요." id = "login_id"></td>
+                    </tr>
+                    <!--login_pwd-->
+                    <tr>
+                        <td><label for="login_pwd">Password </label></td>
+                        <td><input type = "password" name = "login_pwd" placeholder="비밀번호를 입력하세요." id = "login_pwd"></td>
+                    </tr>
+                    <!--name-->
+                    <tr>
+                        <td><label for="name">Name </label></td>
+                        <td><input type = "text" name = "name" placeholder="이름을 입력하세요." id = "name"></td>
+                    </tr>
+                    <!--gender-->
+                    <tr>
+                        <td><label for="gender">Gender </label></td>
+                        <td>
+                            <select name="gender" id="gender">
+                            {% set type_dic = { 'Female' : 'female', 'Male' : 'male' } %}
+                            {% for key, value in type_dic.items() %}
+                                <option value="{{key}}">{{value}}</option>
+                            {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="birthdate">Birthdate </label></td>
+                        <td><input type = "date" name = "birthdate" id = "birthdate" value="1998-06-17"></td>
+                    </tr>
+                    <!--address-->
+                    <tr>
+                        <td><label for="address">Address </label></td>
+                        <td><input type = "text" name = "address" placeholder="주소를 입력하세요" id = "address"></td>
+                    </tr>
+                    <!-- 유효성 -->
+                    {% if is_empty %}
+                    <tr>
+                        <td colspan="2" style="font-size: 1em; color: var(--bs-warning);font-style: oblique;padding:10px;">모든 데이터가 입력되지 않았습니다.</td>
+                    </tr>
+                    {% endif %}
+                </table>
+                <div class="user_register_btn">
+                    <input type="submit" value="등록하기"></td>
+                    <button type="button" onclick = "window.location.href = '/'">취소하기</button>
+                </div>
+            </form>
+        </div>
+    {% endblock %}
+{% endblock %}

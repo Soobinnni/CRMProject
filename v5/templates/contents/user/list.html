@@ -42,9 +42,10 @@
         <col width="24%"></col>
         {% if page_datas %}
         {% set header = page_datas[0].keys() %}
+        {% set key_list = ['id','login_id','login_pwd'] %}
         <tr>
             {% for value in header %}
-            {% if value != 'id' %}
+            {% if value not in key_list %}
                 <th>{{value}}</th>
             {% endif %}
             {% endfor %}
@@ -53,7 +54,7 @@
             {% set id = page_data['id'] %}
             <tr class = 'tr_hover' onclick = window.location.href="{{ url_for('user.user_board_detail', id=id) }}">
                 {% for key, value in page_data.items() %}
-                    {% if key != "id" %}
+                    {% if key not in key_list %}
                         <td>{{value}}</td>
                     {% endif %}
                 {% endfor %}
