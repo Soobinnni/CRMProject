@@ -26,9 +26,13 @@ class ExecuteSQLService:
 
         result = None
         if type_ == DML.SELECT :
-            result = [dict(element) for element in cursor.fetchall()]
+            result =cursor.fetchall()
+            if result :
+                result = [dict(element) for element in result]
         elif type_ == DML.SELECTONE :
-            result = dict(cursor.fetchone())
+            result = cursor.fetchone()
+            if result :
+                result = dict(result)
         else : 
             conn.commit()       
         conn.close()

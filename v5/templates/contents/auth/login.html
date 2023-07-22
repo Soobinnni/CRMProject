@@ -9,6 +9,9 @@
             <input type="password" id="login_pwd" name="login_pwd" placeholder="비밀번호를 입력하세요">
             <input type="checkbox" name = "remember" value = {{True}}>
             <button type="submit" class="login">로그인</button>
+            {% if try_login_status == 'fail' %}   
+                <p>로그인 실패</p>
+            {% endif%}
         </form>
     </body>
 </html>
