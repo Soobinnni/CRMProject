@@ -61,3 +61,12 @@ class StoreSQLBuilder(SQLBuilder):
         result = self.execute_sql(DML.SELECT, sql, args) #execute sql
 
         return result
+    
+    def read_type(self) :
+        sql = """
+            SELECT DISTINCT type
+            FROM store
+            ORDER BY type
+        """
+        result = self.execute_sql(DML.SELECT, sql) #execute sql
+        return result

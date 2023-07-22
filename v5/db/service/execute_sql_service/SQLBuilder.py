@@ -22,11 +22,11 @@ class SQLBuilder(ExecuteSQLService):
 
         sql = select + "*" + from_sentence + where_sentence + lo_sentence
         count_sql = select + 'count(*) AS "count"' + from_sentence + where_sentence
-        print(sql, count_sql)
+
+        print(sql)
 
         result = self.execute_sql(DML.SELECT, sql, where_args) # list[dic, ..]
         count_result = int(self.execute_sql(DML.SELECTONE, count_sql, where_args)['count']) # integer
-        print(result, count_result)
         
         return result, count_result
 
@@ -39,18 +39,15 @@ class SQLBuilder(ExecuteSQLService):
     def mk_where_condition(self, condition_dict) :
         where_sentence = " WHERE"
         where_args = ()
-        index = 0
 
         for key, value in condition_dict.items() : 
             if(value) :
-                if index > 0 :
-                    where_sentence += " AND"
                 if "like_" in key :
-                    where_sentence += " " + key.replace("like_", "") + " LIKE ?"
+                    where_sentence += " " + key.replace("like_", "") + " LIKE ? AND "
                     where_args += (f"%{value}%",)
-                else :
-                    where_sentence += " " + key + ' = ?'
+                else : 
+                    where_sentence += " " + key + ' = ? AND '
                     where_args += (value, )
-            index += 1 
+        where_sentence = where_sentence[0:-5] #TODO: index접근으로 바꿨었으나 인자가 없을 경우 오류..
 
         return where_sentence, where_args

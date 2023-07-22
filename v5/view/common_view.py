@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from flask_login import current_user
 from db.service.execute_sql_service.UserSQLBuilder import UserSQLBuilder
 from domain.user import User
 from flask_bcrypt import generate_password_hash
@@ -14,7 +15,11 @@ def home():
 
 @common_bp.route("/order-type")
 def order_type() :
-    response = render_template("contents/common/order_type.html")
+    response = None
+    if current_user.is_authenticated :
+        response = render_template("contents/user/order.html")
+    else :    
+        response = render_template("contents/common/order_type.html")
     return response
 
 @common_bp.route("/order")

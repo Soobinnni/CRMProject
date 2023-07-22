@@ -1,13 +1,16 @@
 from flask import Blueprint, Flask, render_template, request, redirect, url_for
+from flask_login import login_required
 
 from view.paging import get_page_info
 from db.service.execute_sql_service.ItemSQLBuilder import ItemSQLBuilder
 from domain.item import Item
 
+
 item_bp = Blueprint('item', __name__, url_prefix='/item')
 item_service = ItemSQLBuilder()
 
 @item_bp.route("/board/list")
+@login_required
 def item_board_list():
     # parameter values
     page_num = request.args.get("page_num", type=int, default=1)
@@ -30,6 +33,7 @@ def item_board_list():
 
 
 @item_bp.route("/board/detail")
+@login_required
 def item_board_detail():
     # parameter value
     id = request.args.get("id", type=str)
@@ -58,6 +62,7 @@ def item_board_detail():
 
 # --------------------------------------------------------register-----------------------------------------------------------------
 @item_bp.route("/register", methods = ['GET', 'POST'])
+@login_required
 def item_register():
     response = None
     if request.method == 'GET' :

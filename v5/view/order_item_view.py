@@ -1,4 +1,5 @@
 from flask import Blueprint, Flask, render_template, request
+from flask_login import login_required
 
 from view.paging import get_page_info
 from db.service.execute_sql_service.OrderItemSQLBuilder import OrderItemSQLBuilder
@@ -7,6 +8,7 @@ order_item_bp = Blueprint('order_item', __name__, url_prefix='/order-item')
 order_item_service = OrderItemSQLBuilder()
 
 @order_item_bp.route("/board/list")
+@login_required
 def order_item_board_list():
     page_num = request.args.get("page_num", type=int, default=1) # parameter values
 
@@ -22,6 +24,7 @@ def order_item_board_list():
 
 
 @order_item_bp.route("/board/detail")
+@login_required
 def order_item_board_detail():
     id = request.args.get("id", type=str) # parameter value
     data = order_item_service.read_id('"order"', id) #service

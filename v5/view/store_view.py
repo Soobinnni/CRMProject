@@ -1,4 +1,5 @@
 from flask import Blueprint, Flask, render_template, request, redirect, url_for
+from flask_login import login_required
 
 from view.paging import get_page_info
 from db.service.execute_sql_service.StoreSQLBuilder import StoreSQLBuilder
@@ -7,7 +8,9 @@ from domain.store import Store
 store_bp = Blueprint('store', __name__, url_prefix='/store')
 store_service = StoreSQLBuilder()
 
+# --------------------------------------------------------read-----------------------------------------------------------------
 @store_bp.route("/board/list")
+@login_required
 def store_board_list():
     # parameter values
     page_num = request.args.get("page_num", type=int, default=1)
@@ -28,8 +31,8 @@ def store_board_list():
     response = render_template("contents/store/list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=result, page_num=page_num, name = name, address = address)
     return response
 
-
 @store_bp.route("/board/detail")
+@login_required
 def store_board_detail():
     # parameter value
     id = request.args.get("id", type=str)
@@ -47,8 +50,33 @@ def store_board_detail():
     response = render_template("contents/store/detail.html", data = data, sale_datas = sale_datas, regular_customers = regular_customers, regist_status = regist_status)
     return response
 
+@store_bp.route("/select")
+# @login_required
+def select():
+    # parameter values
+    page_num = request.args.get("page_num", type=int, default=1)
+    store_type = request.args.get("store_type", type=str, default=" ").strip()
+    gu = request.args.get("gu", type=str, default=" ").strip()
+
+    board_num = 12
+    result = []
+    total_page = 0
+    
+    if (not store_type and not gu) : 
+        result, total_page = store_service.read_all("store", board_num, ((page_num-1)*board_num))
+    else :
+        result, total_page = store_service.read_kwargs("store", board_num, ((page_num-1)*board_num), like_name = store_type, like_address = gu )
+
+    store_type_list = [value['type'] for value in store_service.read_type()]
+
+    page_list = get_page_info(page_num, 5, total_page)
+
+    response = render_template("contents/store/select.html", stores = result, page_num = page_num, page_list = page_list, store_type_list = store_type_list)
+    return response
+
 # --------------------------------------------------------register-----------------------------------------------------------------
 @store_bp.route("/register", methods = ['GET', 'POST'])
+@login_required
 def store_register():
     response = None
     if request.method == 'GET' :

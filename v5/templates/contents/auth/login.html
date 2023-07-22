@@ -4,6 +4,7 @@
         <title>로그인 페이지</title>
     </head>
     <body>
+        <h1><a href = "{{url_for('common.home')}}">HOME</a></h1>
         <form action="{{url_for('auth.login')}}" method = "post" >
             <input type="id" id="login_id" name="login_id" placeholder="아이디를 입력하세요">
             <input type="password" id="login_pwd" name="login_pwd" placeholder="비밀번호를 입력하세요">

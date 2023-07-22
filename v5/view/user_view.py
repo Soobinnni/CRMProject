@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from flask_login import login_required
 
 from view.paging import get_page_info
 from db.service.execute_sql_service.UserSQLBuilder import UserSQLBuilder
@@ -8,6 +9,7 @@ user_service = UserSQLBuilder()
 
 # --------------------------------------------------------board-----------------------------------------------------------------
 @user_bp.route("/board/list")
+@login_required
 def user_board_list():
     # parameter values
     page_num = request.args.get("page_num", type=int, default=1)
@@ -30,6 +32,7 @@ def user_board_list():
     return response
 
 @user_bp.route("/board/detail")
+@login_required
 def user_board_detail():
     # parameter value
     id = request.args.get("id", type=str)
@@ -45,5 +48,6 @@ def user_board_detail():
     return response
 
 @user_bp.route("/order")
+@login_required
 def order() :
     return render_template('contents/user/order.html')
