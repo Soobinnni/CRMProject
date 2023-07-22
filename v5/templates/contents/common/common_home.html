@@ -5,7 +5,11 @@
     </head>
     <body>
         <h1>crm 홈페이지~</h1>
-        <button type="button" onclick="window.location.href = '{{url_for('login.login')}}'">로그인</button>
+        {% if current_user.is_authenticated %}
+            <button type="button" onclick="window.location.href = '{{url_for('logout')}}'">로그아웃</button>
+        {% else %}
+            <button type="button" onclick="window.location.href = '{{url_for('login')}}'">로그인</button>
+        {% endif %}
         <button type="button" onclick="window.location.href = '{{url_for('common.order_type')}}'">주문하기</button>
         <button type="button" onclick="window.location.href = '{{url_for('common.sign_up')}}'">회원가입</button>
     </body>

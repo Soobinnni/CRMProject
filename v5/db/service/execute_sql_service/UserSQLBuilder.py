@@ -12,13 +12,24 @@ class UserSQLBuilder(SQLBuilder) :
         id = user.id = str(uuid.uuid4()) # uuid init
         user_tuple = tuple(user.__dict__.values()) # object property -> tuple
         
-        sql = "INSERT INTO user(id, name, gender, birthdate, age, address) VALUES (?, ?, ?, ?, ?, ?)"
+        sql = "INSERT INTO user(login_id, login_pwd, id, name, gender, birthdate, age, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
         args = user_tuple
         self.execute_sql(DML.INSERT, sql, args) #execute sql
 
         return id
     
 # =========================================================READ=========================================================
+    def read_user(self, id) :
+        sql = """
+            SELECT *
+            FROM user
+            WHERE login_id = ?
+        """
+        args = (id, )
+        result = self.execute_sql(DML.SELECTONE, sql, args)
+
+        return result
+
     def read_order(self, id) :
         sql = """
             SELECT o.id AS "order id", o.ordered_at AS "purchased date", s.id AS "purchased location"

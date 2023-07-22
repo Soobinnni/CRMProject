@@ -1,8 +1,8 @@
 from datetime import datetime
 class User() :
-    def __init__(self, name, gender, birthdate, address) :
-        self.login_id = ""
-        self.login_pwd = ""
+    def __init__(self, login_id, login_pwd, name, gender, birthdate, address) :
+        self.login_id = login_id
+        self.login_pwd = login_pwd
         self.id = ""
         self.name = name
         self.gender = gender

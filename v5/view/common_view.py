@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from db.service.execute_sql_service.UserSQLBuilder import UserSQLBuilder
 from domain.user import User
+from flask_bcrypt import generate_password_hash
 
 common_bp = Blueprint('common', __name__)
 user_service = UserSQLBuilder()
@@ -37,7 +38,7 @@ def sign_up() :
         address =  request.form['address'].strip()
 
         is_empty = False # 유효성 검사
-        is_empty_list = [(len(name) == 0), (len(address) == 0)]
+        is_empty_list = [(len(name) == 0), (len(address) == 0), (len(login_id) == 0), (len(login_pwd) == 0)]
 
         for form_data in is_empty_list : 
             if form_data :
@@ -46,7 +47,8 @@ def sign_up() :
         if is_empty :
             response = render_template("contents/common/sign_up.html", is_empty = is_empty)
         else : 
-            user = User(name, gender, birthdate, address) # user domain init
+            hashed_login_pwd =  generate_password_hash(login_pwd).decode('utf-8')
+            user = User(login_id, hashed_login_pwd, name, gender, birthdate, address) # user domain init
             user_id = user_service.create(user) # user create service, uuid get
             regist_status = True # 등록 여부
 

@@ -25,13 +25,18 @@
         <col width="20%"></col>
         <col width="18%"></col>
         <tr>
+            {% set key_list = ['id','login_id','login_pwd'] %}
             {% for header in user_data.keys() %}
-            <th>{{header}}</th>
+                {% if header not in key_list %}
+                    <th>{{header}}</th>
+                {% endif%}
             {% endfor %}
         </tr>
         <tr>
-            {% for value in user_data.values() %}
-            <td>{{value}}</td>
+            {% for key, value in user_data.items() %}
+                {% if key not in key_list %}
+                    <td>{{value}}</td>
+                {% endif%}
             {% endfor %}
         </tr>
     </table>

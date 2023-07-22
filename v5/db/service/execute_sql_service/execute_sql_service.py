@@ -16,7 +16,7 @@ class ExecuteSQLService:
         cursor = conn.cursor()
 
         return conn, cursor
-    
+        
     def execute_sql(self, type_, sql, args = None) :
         conn, cursor = self.get_conn_cursor() # get conn, cursor
         if args != None :
@@ -27,10 +27,8 @@ class ExecuteSQLService:
         result = None
         if type_ == DML.SELECT :
             result = [dict(element) for element in cursor.fetchall()]
-        elif type_ == DML.SELECTONE :
+        else :
             result = dict(cursor.fetchone())
-        else : 
-            conn.commit()       
         conn.close()
 
         return result

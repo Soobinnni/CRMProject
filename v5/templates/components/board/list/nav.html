@@ -1,10 +1,12 @@
 <div style="background-color: var(--bs-dark);">
     <nav class="nav">
         <ul class="login" style="width : 88%">
-            {% if login == True %}
-                <li><a href = "{{url_for('login.login')}}">로그인</a></li>
+            {% if current_user.is_authenticated %}
+                <li><a onclick="logout()">로그아웃</a></li>
+                <form id="logout" action="/logout" method="post"></form>
+                <script>function logout(){document.getElementById("logout").submit()}</script>
             {% else %}
-                <li><a href = "{{url_for('login.logout')}}">로그아웃</a></li>
+                <li><a href = "{{url_for('login')}}">로그인</a></li>
             {% endif %}
         </ul>
     </nav>
