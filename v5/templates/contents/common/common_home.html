@@ -7,10 +7,10 @@
         <h1>crm 홈페이지~</h1>
         {% if current_user.is_authenticated %}
             <button type="button" onclick="logout()"'">로그아웃</button>
-            <form id="logout" action="/logout" method="post"></form>
+            <form id="logout" action="{{url_for('auth.logout')}}" method="post"></form>
             <script>function logout(){document.getElementById("logout").submit()}</script>
         {% else %}
-            <button type="button" onclick="window.location.href = '{{url_for('login.login')}}'">로그인</button>
+            <button type="button" onclick="window.location.href = '{{url_for('auth.login')}}'">로그인</button>
         {% endif %}
         <button type="button" onclick="window.location.href = '{{url_for('common.order_type')}}'">주문하기</button>
         <button type="button" onclick="window.location.href = '{{url_for('common.sign_up')}}'">회원가입</button>
