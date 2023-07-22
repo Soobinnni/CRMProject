@@ -6,7 +6,7 @@
                 <form id="logout" action="/logout" method="post"></form>
                 <script>function logout(){document.getElementById("logout").submit()}</script>
             {% else %}
-                <li><a href = "{{url_for('login')}}">로그인</a></li>
+                <li><a href = "{{url_for('login.login')}}">로그인</a></li>
             {% endif %}
         </ul>
     </nav>

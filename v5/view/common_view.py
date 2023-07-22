@@ -48,7 +48,7 @@ def sign_up() :
             response = render_template("contents/common/sign_up.html", is_empty = is_empty)
         else : 
             hashed_login_pwd =  generate_password_hash(login_pwd).decode('utf-8')
-            user = User(login_id, hashed_login_pwd, name, gender, birthdate, address) # user domain init
+            user = User(login_id, hashed_login_pwd, name, gender, birthdate, address, 2) # user domain init, 2 == user_auth(Memeber)
             user_id = user_service.create(user) # user create service, uuid get
             regist_status = True # 등록 여부
 

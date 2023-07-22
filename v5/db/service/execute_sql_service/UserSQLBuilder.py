@@ -12,7 +12,7 @@ class UserSQLBuilder(SQLBuilder) :
         id = user.id = str(uuid.uuid4()) # uuid init
         user_tuple = tuple(user.__dict__.values()) # object property -> tuple
         
-        sql = "INSERT INTO user(login_id, login_pwd, id, name, gender, birthdate, age, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+        sql = "INSERT INTO user(login_id, login_pwd, id, name, gender, birthdate, age, address, user_auth_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
         args = user_tuple
         self.execute_sql(DML.INSERT, sql, args) #execute sql
 
@@ -21,9 +21,10 @@ class UserSQLBuilder(SQLBuilder) :
 # =========================================================READ=========================================================
     def read_user(self, id) :
         sql = """
-            SELECT *
-            FROM user
-            WHERE login_id = ?
+            SELECT u.login_id AS "login_id", u.login_pwd AS "login_pwd", u.name AS "name", u.gender AS "gender", u.birthdate AS "birthdate", u.age AS "age", u.address AS "address", ua.name AS "user_auth"
+            FROM user u
+            JOIN user_auth ua ON u.user_auth_id = ua.id
+            WHERE u.login_id = ?;
         """
         args = (id, )
         result = self.execute_sql(DML.SELECTONE, sql, args)

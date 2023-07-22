@@ -1,6 +1,24 @@
 from datetime import datetime
+from flask_login import UserMixin
+
+class AuthUser(UserMixin):
+    def __init__(self, id, name, gender, birthdate, age, address, user_auth):
+        self.id = id
+        self.name = name
+        self.gender = gender
+        self.birthdate = birthdate
+        self.age = age
+        self.address = address
+        self.user_auth = user_auth
+
+    def get_id(self):
+        return self.id
+
+    def __repr__(self):
+        return f"USER: {self.id} = {self.name}"
+    
 class User() :
-    def __init__(self, login_id, login_pwd, name, gender, birthdate, address) :
+    def __init__(self, login_id, login_pwd, name, gender, birthdate, address, user_auth_id) :
         self.login_id = login_id
         self.login_pwd = login_pwd
         self.id = ""
@@ -9,6 +27,7 @@ class User() :
         self.birthdate = birthdate
         self.age = self.cal_age(birthdate)
         self.address = address
+        self.user_auth_id = user_auth_id
 
     @property
     def login_id(self):
@@ -73,6 +92,14 @@ class User() :
     @address.setter
     def address(self, address):
         self.__address = address
+
+    @property
+    def user_auth_id(self):
+        return self.__user_auth_id
+
+    @user_auth_id.setter
+    def user_auth_id(self, user_auth_id):
+        self.__user_auth_id = user_auth_id
     
     def cal_age(self, birthdate) :
         cur_year = datetime.today().year   

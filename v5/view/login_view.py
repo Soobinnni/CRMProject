@@ -1,56 +1,33 @@
 # login_bp.py
-from flask import Blueprint, render_template, request, redirect, url_for, current_app
-from flask_login import logout_user, login_required, UserMixin, login_user, LoginManager
+from flask import Blueprint, render_template, request, redirect, url_for
+from flask_login import logout_user, login_required, login_user
 from flask_bcrypt import check_password_hash
 from db.service.execute_sql_service.UserSQLBuilder import UserSQLBuilder
+from domain.user import AuthUser
 
 login_bp = Blueprint('login', __name__)
-# user_service = UserSQLBuilder()
+user_service = UserSQLBuilder()
 
+@login_bp.route("/login", methods = ['GET', 'POST'])
+def login() :
+    if request.method == 'GET' : 
+        return render_template('contents/login/login.html')
+    if request.method == 'POST' :
+        login_id = request.form['login_id']
+        login_pwd = request.form['login_pwd']
 
-# class User(UserMixin):
-#     def __init__(self, id, name, gender, birthdate, age, address):
-#         self.id = id
-#         self.name = name
-#         self.gender = gender
-#         self.birthdate = birthdate
-#         self.age = age
-#         self.address = address
+        user = user_service.read_user(login_id)
 
-#     def get_id(self):
-#         return self.id
+        if user and check_password_hash(user['login_pwd'], login_pwd):
+            user_obj = AuthUser(user['login_id'], user['name'], user['gender'], user['birthdate'], user['age'], user['address'], user['user_auth'])
+            login_user(user_obj)  # 사용자를 로그인 시킴
 
-#     def __repr__(self):
-#         return f"USER: {self.id} = {self.name}"
+            return redirect(url_for('common.home')) 
+        else :
+            return render_template('contents/login/login.html', try_login_status = False)
 
-# @login_bp.route("/login", methods = ['GET', 'POST'])
-# def login() :
-#     if request.method == 'GET' : 
-#         return render_template('contents/login/login.html')
-#     if request.method == 'POST' :
-#         login_id = request.form['login_id']
-#         login_pwd = request.form['login_pwd']
-
-#         user = user_service.read_kwargs(login_id)
-
-#         if user and check_password_hash(user['login_pwd'], login_pwd):
-#             user_obj = User(login_id, user['name'])
-#             login_user(user_obj)  # 사용자를 로그인 시킴
-#             return redirect(url_for('home')) 
-#         else :
-#             return render_template('contents/login/login.html', try_login_status = False)
-
-
-# @login_bp.route("/logout", methods = ['POST'])
-# @login_required
-# def logout() :
-#     logout_user() # session 만료
-#     return redirect(url_for('login.login'))
-
-# # LoginManager 초기화 함수
-# def init_login_manager(login_manager: LoginManager):
-#     @login_manager.user_loader
-#     def load_user(user_id):
-#         user_info = user_service.read_user(user_id) # execute sql
-#         return User(user_info['login_id'], user_info['name'], user_info['gender'], user_info['birthdate'], user_info['age'], user_info['address']) #User init
-    
+@login_bp.route("/logout", methods = ['POST'])
+@login_required
+def logout() :
+    logout_user() # session 만료
+    return redirect(url_for('login.login'))

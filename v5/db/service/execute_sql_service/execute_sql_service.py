@@ -11,12 +11,12 @@ class DML(Enum) :
     
 class ExecuteSQLService:
     def get_conn_cursor(self) :
-        conn = sqlite3.connect(DATABASE)
+        conn = sqlite3.connect("db/crm.db")
         conn.row_factory = sqlite3.Row  
         cursor = conn.cursor()
 
         return conn, cursor
-        
+    
     def execute_sql(self, type_, sql, args = None) :
         conn, cursor = self.get_conn_cursor() # get conn, cursor
         if args != None :
@@ -27,8 +27,10 @@ class ExecuteSQLService:
         result = None
         if type_ == DML.SELECT :
             result = [dict(element) for element in cursor.fetchall()]
-        else :
+        elif type_ == DML.SELECTONE :
             result = dict(cursor.fetchone())
+        else : 
+            conn.commit()       
         conn.close()
 
         return result
