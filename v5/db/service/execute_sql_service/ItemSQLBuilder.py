@@ -29,3 +29,12 @@ class ItemSQLBuilder(SQLBuilder):
         args = (id,)
         result = self.execute_sql(DML.SELECT, sql, args) #execute sql
         return result
+    
+    def read_type(self) :
+        sql = '''
+            SELECT DISTINCT type
+            FROM item
+            ORDER BY type
+        '''
+        result = self.execute_sql(DML.SELECT, sql) #execute sql
+        return result

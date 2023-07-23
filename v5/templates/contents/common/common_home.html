@@ -12,7 +12,7 @@
         {% else %}
             <button type="button" onclick="window.location.href = '{{url_for('auth.login')}}'">로그인</button>
         {% endif %}
-        <button type="button" onclick="window.location.href = '{{url_for('store.select')}}'">주문하기</button>
+        <button type="button" onclick="window.location.href = '{{url_for('order.store_select')}}'">주문하기</button>
         {% if not current_user.is_authenticated %}
             <button type="button" onclick="window.location.href = '{{url_for('common.sign_up')}}'">회원가입</button>
         {% endif %}

@@ -21,7 +21,7 @@ class UserSQLBuilder(SQLBuilder) :
 # =========================================================READ=========================================================
     def read_user(self, id) :
         sql = """
-            SELECT u.login_id AS "login_id", u.login_pwd AS "login_pwd", u.name AS "name", u.gender AS "gender", u.birthdate AS "birthdate", u.age AS "age", u.address AS "address", ua.name AS "user_auth"
+            SELECT u.id, u.login_id AS "login_id", u.login_pwd AS "login_pwd", u.name AS "name", u.gender AS "gender", u.birthdate AS "birthdate", u.age AS "age", u.address AS "address", ua.name AS "user_auth"
             FROM user u
             JOIN user_auth ua ON u.user_auth_id = ua.id
             WHERE u.login_id = ?;

@@ -23,7 +23,7 @@ user_service = UserSQLBuilder()
 @login_manager.user_loader
 def load_user(user_id):
     user_info = user_service.read_user(user_id) # execute sql
-    return AuthUser(user_info['login_id'], user_info['name'], user_info['gender'], user_info['birthdate'], user_info['age'], user_info['address'], user_info['user_auth']) #User init
+    return AuthUser(user_info['id'], user_info['login_id'], user_info['name'], user_info['gender'], user_info['birthdate'], user_info['age'], user_info['address'], user_info['user_auth']) #User init
 # ---------------------------------------------views---------------------------------------------------------------
 blueprints = [user_bp, item_bp, order_bp, order_item_bp, store_bp, common_bp, auth_bp]
 for bp in blueprints:

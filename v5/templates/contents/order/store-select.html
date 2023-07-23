@@ -45,7 +45,7 @@
                 <nav class="navbar"><!-- <nav class="navbar bg-light"> -->
                     <form class="container-fluid justify-content-start">
                         {% for type in store_type_list %}
-                            <button onclick = "window.location.href = '{{url_for("store.select", store_type = type, nav_type = 'brand')}}'" class= "btn btn-sm btn-outline-secondary" type="button">{{type}}</button>
+                            <button onclick = "window.location.href = '{{url_for("order.store_select", store_type = type, nav_type = 'brand')}}'" class= "btn btn-sm btn-outline-secondary" type="button">{{type}}</button>
                         {% endfor %}
                     </form>
                 </nav>
@@ -55,7 +55,7 @@
                     {% set gus = ['송파구','강서구','강남구','노원구','관악구','은평구','강동구','양천구','성북구','서초구','구로구','중랑구','동작구','마포구','광진구','도봉구','강북구','성동구','금천구','용산구','종로구','영등포구','서대문구','동대문구','중구'] %}
                     <form class="container-fluid justify-content-start">
                         {% for gu in gus%}
-                            <button onclick = "window.location.href = '{{url_for("store.select", gu = gu, nav_type = 'local')}}'" class="btn btn-sm btn-outline-secondary" type="button">{{gu}}</button>
+                            <button onclick = "window.location.href = '{{url_for("order.store_select", gu = gu, nav_type = 'local')}}'" class="btn btn-sm btn-outline-secondary" type="button">{{gu}}</button>
                         {% endfor %}
                     </form>
                 </nav>
@@ -74,7 +74,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{store['name']}}</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">{{store['address']}}</h6>
-                                    <a href="#" class="btn btn-primary">선택하기</a>
+                                    <a href="/order/{{store['id']}}/item-select" class="btn btn-primary">선택하기</a>
                                 </div>
                             </div>
                     </div>        
@@ -90,13 +90,13 @@
                         {% else %}
                         {% set pre_page_num = page_list[0]-3 %}                        				
                         <li class="page-item">
-                            <a class="page-link" href="{{ url_for('store.select', page_num=pre_page_num, store_type = store_type, gu = gu ) }}" aria-label="Previous">
+                            <a class="page-link" href="{{ url_for('order.store_select', page_num=pre_page_num, store_type = store_type, gu = gu, nav_type = nav_type ) }}" aria-label="Previous">
                                 <span aria-hidden="true">Previous</span>
                             </a>
                         </li>
                         {% endif %}
                         {% for page in page_list %}
-                            <li class="page-item"><a class="page-link" href="{{ url_for('store.select', page_num=page, store_type = store_type, gu = gu ) }}">{{page}}</a></li>
+                            <li class="page-item"><a class="page-link" href="{{ url_for('order.store_select', page_num=page, store_type = store_type, gu = gu, nav_type = nav_type ) }}">{{page}}</a></li>
                         {% endfor %}
                         {% set page_length = page_list | length %}
                         {% set page_index = page_length-1 %}
@@ -109,7 +109,7 @@
                             </li>
                         {% else %}
                             <li class="page-item">
-                                <a class="page-link" href="{{ url_for('store.select', page_num=next_page_num, name = name, address = address ) }}" aria-label="Next">
+                                <a class="page-link" href="{{ url_for('order.store_select', page_num=next_page_num, store_type = store_type, gu = gu, nav_type = nav_type ) }}" aria-label="Next">
                                     <span aria-hidden="true">NEXT</span>
                                 </a>
                             </li>

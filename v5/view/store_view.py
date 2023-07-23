@@ -50,31 +50,6 @@ def store_board_detail():
     response = render_template("contents/store/detail.html", data = data, sale_datas = sale_datas, regular_customers = regular_customers, regist_status = regist_status)
     return response
 
-@store_bp.route("/select")
-# @login_required
-def select():
-    # parameter values
-    page_num = request.args.get("page_num", type=int, default=1)
-    store_type = request.args.get("store_type", type=str, default=" ").strip()
-    gu = request.args.get("gu", type=str, default=" ").strip()
-    nav_type = request.args.get("nav_type", type=str, default="brand").strip()
-
-    board_num = 12
-    result = []
-    data_num = 0
-
-    if (not store_type and not gu) : 
-        result, data_num = store_service.read_all("store", board_num, ((page_num-1)*board_num))
-    else :
-        result, data_num = store_service.read_kwargs("store", board_num, ((page_num-1)*board_num), like_name = store_type, like_address = gu )
-
-    store_type_list = [value['type'] for value in store_service.read_type()]
-
-    page_list, total_page = get_page_info(page_num, 3, data_num, board_num)
-
-    response = render_template("contents/store/select.html", stores = result, page_num = page_num, page_list = page_list, total_page = total_page, store_type_list = store_type_list, store_type = store_type, gu = gu, nav_type = nav_type)
-    return response
-
 # --------------------------------------------------------register-----------------------------------------------------------------
 @store_bp.route("/register", methods = ['GET', 'POST'])
 @login_required

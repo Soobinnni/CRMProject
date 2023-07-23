@@ -2,7 +2,8 @@ from datetime import datetime
 from flask_login import UserMixin
 
 class AuthUser(UserMixin):
-    def __init__(self, id, name, gender, birthdate, age, address, user_auth):
+    def __init__(self, uuid, id, name, gender, birthdate, age, address, user_auth):
+        self.uuid = uuid
         self.id = id
         self.name = name
         self.gender = gender
