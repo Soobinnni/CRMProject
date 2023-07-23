@@ -23,8 +23,6 @@ class SQLBuilder(ExecuteSQLService):
         sql = select + "*" + from_sentence + where_sentence + lo_sentence
         count_sql = select + 'count(*) AS "count"' + from_sentence + where_sentence
 
-        print(sql)
-
         result = self.execute_sql(DML.SELECT, sql, where_args) # list[dic, ..]
         count_result = int(self.execute_sql(DML.SELECTONE, count_sql, where_args)['count']) # integer
         

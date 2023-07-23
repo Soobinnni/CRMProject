@@ -14,10 +14,10 @@ def order_item_board_list():
 
     board_num = 10
     result = []
-    total_page = 0
+    data_num = 0
     
-    result, total_page = order_item_service.read_all('order_item', board_num, ((page_num-1)*board_num))   
-    page_list = get_page_info(page_num, 5, total_page)
+    result, data_num = order_item_service.read_all('order_item', board_num, ((page_num-1)*board_num))   
+    page_list, total_page = get_page_info(page_num, 5, data_num, board_num)
 
     response = render_template("contents/order_item/list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=result, page_num=page_num)
     return response

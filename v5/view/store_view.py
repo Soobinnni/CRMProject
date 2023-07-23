@@ -19,14 +19,14 @@ def store_board_list():
 
     board_num = 10
     result = []
-    total_page = 0
+    data_num = 0
     
     if (not name and not address) :
-        result, total_page = store_service.read_all("store", board_num, ((page_num-1)*board_num))
+        result, data_num = store_service.read_all("store", board_num, ((page_num-1)*board_num))
     else :
-        result, total_page = store_service.read_kwargs("store", board_num, ((page_num-1)*board_num), like_name = name, like_address = address)
+        result, data_num = store_service.read_kwargs("store", board_num, ((page_num-1)*board_num), like_name = name, like_address = address)
 
-    page_list = get_page_info(page_num, 5, total_page)
+    page_list, total_page = get_page_info(page_num, 5, data_num, board_num)
 
     response = render_template("contents/store/list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=result, page_num=page_num, name = name, address = address)
     return response
@@ -57,21 +57,22 @@ def select():
     page_num = request.args.get("page_num", type=int, default=1)
     store_type = request.args.get("store_type", type=str, default=" ").strip()
     gu = request.args.get("gu", type=str, default=" ").strip()
+    nav_type = request.args.get("nav_type", type=str, default="brand").strip()
 
     board_num = 12
     result = []
-    total_page = 0
-    
+    data_num = 0
+
     if (not store_type and not gu) : 
-        result, total_page = store_service.read_all("store", board_num, ((page_num-1)*board_num))
+        result, data_num = store_service.read_all("store", board_num, ((page_num-1)*board_num))
     else :
-        result, total_page = store_service.read_kwargs("store", board_num, ((page_num-1)*board_num), like_name = store_type, like_address = gu )
+        result, data_num = store_service.read_kwargs("store", board_num, ((page_num-1)*board_num), like_name = store_type, like_address = gu )
 
     store_type_list = [value['type'] for value in store_service.read_type()]
 
-    page_list = get_page_info(page_num, 5, total_page)
+    page_list, total_page = get_page_info(page_num, 3, data_num, board_num)
 
-    response = render_template("contents/store/select.html", stores = result, page_num = page_num, page_list = page_list, store_type_list = store_type_list)
+    response = render_template("contents/store/select.html", stores = result, page_num = page_num, page_list = page_list, total_page = total_page, store_type_list = store_type_list, store_type = store_type, gu = gu, nav_type = nav_type)
     return response
 
 # --------------------------------------------------------register-----------------------------------------------------------------

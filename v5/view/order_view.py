@@ -16,14 +16,14 @@ def order_board_list():
     
     board_num = 10
     result = []
-    total_page = 0
+    data_num = 0
 
     if not order_at :
-        result, total_page = order_service.read_all('"order"', board_num, ((page_num-1)*board_num))
+        result, data_num = order_service.read_all('"order"', board_num, ((page_num-1)*board_num))
     else :
-        result, total_page = order_service.read_kwargs('"order"', board_num, ((page_num-1)*board_num), like_ordered_at = order_at)
+        result, data_num = order_service.read_kwargs('"order"', board_num, ((page_num-1)*board_num), like_ordered_at = order_at)
 
-    page_list = get_page_info(page_num, 5, total_page)
+    page_list, total_page = get_page_info(page_num, 5, data_num, board_num)
 
     response = render_template("contents/order/list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=result, page_num=page_num, order_at = order_at)
     return response

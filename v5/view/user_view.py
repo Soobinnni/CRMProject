@@ -18,15 +18,15 @@ def user_board_list():
 
     board_num = 10
     result = []
-    total_page = 0
+    data_num = 0
 
     # service
     if( not name and not gender ) :
-        result, total_page = user_service.read_all("user", board_num, ((page_num-1)*board_num))
+        result, data_num = user_service.read_all("user", board_num, ((page_num-1)*board_num))
     else : 
-        result, total_page = user_service.read_kwargs("user", board_num, ((page_num-1)*board_num), like_name = name, like_gender = gender) 
+        result, data_num = user_service.read_kwargs("user", board_num, ((page_num-1)*board_num), like_name = name, like_gender = gender) 
 
-    page_list = get_page_info(page_num, 5, total_page)
+    page_list, total_page = get_page_info(page_num, 5, data_num, board_num)
 
     response = render_template("contents/user/list.html", datas=result, total_page = total_page, page_list=page_list, page_datas=result, page_num=page_num, name=name, gender=gender)
     return response

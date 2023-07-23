@@ -21,30 +21,41 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <body>
         <h1>가게 선택</h1>
+        {% set brand_nav = ''%}
+        {% set brand_content_nav = ''%}
+        {% set local_nav = ''%}
+        {% set local_content_nav = ''%}
+        {% if nav_type == 'brand' %}
+            {% set brand_nav = 'active'%}
+            {% set brand_content_nav = 'show active'%}
+        {% elif nav_type == 'local' %}
+            {% set local_nav = 'active'%}
+            {% set local_content_nav = 'show active'%}
+        {% endif %}
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="brand-tab" data-bs-toggle="tab" data-bs-target="#brand-tab-pane" type="button" role="tab" aria-controls="brand-tab-pane" aria-selected="true">브랜드별</button>
+                <button class="nav-link {{brand_nav}}" id="brand-tab" data-bs-toggle="tab" data-bs-target="#brand-tab-pane" type="button" role="tab" aria-controls="brand-tab-pane" aria-selected="true">브랜드별</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="local-tab" data-bs-toggle="tab" data-bs-target="#local-tab-pane" type="button" role="tab" aria-controls="local-tab-pane" aria-selected="false">지역별</button>
+                <button class="nav-link {{local_nav}}" id="local-tab" data-bs-toggle="tab" data-bs-target="#local-tab-pane" type="button" role="tab" aria-controls="local-tab-pane" aria-selected="false">지역별</button>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="brand-tab-pane" role="tabpanel" aria-labelledby="brand-tab" tabindex="0">
+            <div class="tab-pane fade {{brand_content_nav}}" id="brand-tab-pane" role="tabpanel" aria-labelledby="brand-tab" tabindex="0">
                 <nav class="navbar"><!-- <nav class="navbar bg-light"> -->
                     <form class="container-fluid justify-content-start">
                         {% for type in store_type_list %}
-                            <button onclick = "window.location.href = '{{url_for("store.select", page_num = page_num, store_type = type)}}'" class= "btn btn-sm btn-outline-secondary" type="button">{{type}}</button>
+                            <button onclick = "window.location.href = '{{url_for("store.select", store_type = type, nav_type = 'brand')}}'" class= "btn btn-sm btn-outline-secondary" type="button">{{type}}</button>
                         {% endfor %}
                     </form>
                 </nav>
             </div>
-            <div class="tab-pane fade" id="local-tab-pane" role="tabpanel" aria-labelledby="local-tab" tabindex="0">
+            <div class="tab-pane fade {{local_content_nav}}" id="local-tab-pane" role="tabpanel" aria-labelledby="local-tab" tabindex="0">
                 <nav class="navbar">
                     {% set gus = ['송파구','강서구','강남구','노원구','관악구','은평구','강동구','양천구','성북구','서초구','구로구','중랑구','동작구','마포구','광진구','도봉구','강북구','성동구','금천구','용산구','종로구','영등포구','서대문구','동대문구','중구'] %}
                     <form class="container-fluid justify-content-start">
                         {% for gu in gus%}
-                            <button onclick = "window.location.href = '{{url_for("store.select", page_num = page_num, store_type = type, gu = gu)}}'" class="btn btn-sm btn-outline-secondary" type="button">{{gu}}</button>
+                            <button onclick = "window.location.href = '{{url_for("store.select", gu = gu, nav_type = 'local')}}'" class="btn btn-sm btn-outline-secondary" type="button">{{gu}}</button>
                         {% endfor %}
                     </form>
                 </nav>
@@ -69,9 +80,43 @@
                     </div>        
                     {% endfor %}
                 </div>
-    {% for page in page_list %}
-        <span><a href = "{{url_for('store.select', page_num = page)}}" >{{page}}</a></span>
-    {% endfor %}
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                    {% if page_list  %}
+                        {% if page_list[0] == 1 %}
+                            <li class="page-item disabled">
+                                <a class="page-link">Previous</a>
+                            </li>
+                        {% else %}
+                        {% set pre_page_num = page_list[0]-3 %}                        				
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('store.select', page_num=pre_page_num, store_type = store_type, gu = gu ) }}" aria-label="Previous">
+                                <span aria-hidden="true">Previous</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% for page in page_list %}
+                            <li class="page-item"><a class="page-link" href="{{ url_for('store.select', page_num=page, store_type = store_type, gu = gu ) }}">{{page}}</a></li>
+                        {% endfor %}
+                        {% set page_length = page_list | length %}
+                        {% set page_index = page_length-1 %}
+                        {% set next_page_num = page_list[page_index]+1 %}
+                        {% if page_list[page_index] == total_page %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="" aria-label="Next">
+                                    <span aria-hidden="true">NEXT</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="{{ url_for('store.select', page_num=next_page_num, name = name, address = address ) }}" aria-label="Next">
+                                    <span aria-hidden="true">NEXT</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                {% endif %}
+                </ul>
+            </nav>
     </body>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
